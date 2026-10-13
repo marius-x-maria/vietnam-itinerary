@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vietnam, Together</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,18..144,400..700;1,18..144,400..600&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+
+  :root{
+    --paper:#F3F6F1;
+    --surface:#FFFFFF;
+    --ink:#16261F;
+    --ink-soft:#4C5B52;
+    --line:#DCE6DE;
+    --lacquer:#A5272B;
+    --lacquer-soft:#F3DCDC;
+    --jade:#1F5C4C;
+    --jade-soft:#DCEDE6;
+    --gold:#B07F22;
+    --gold-soft:#F1E6CB;
+    --focus:#2B6CB0;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#13201A; --surface:#1B2B23; --ink:#EFF5F0; --ink-soft:#AFC2B6; --line:#2E4038;
+      --lacquer:#E0767A; --lacquer-soft:#3A2224; --jade:#7FD3B6; --jade-soft:#1E352C;
+      --gold:#E0B868; --gold-soft:#332A17; --focus:#7CB3EC;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#13201A; --surface:#1B2B23; --ink:#EFF5F0; --ink-soft:#AFC2B6; --line:#2E4038;
+    --lacquer:#E0767A; --lacquer-soft:#3A2224; --jade:#7FD3B6; --jade-soft:#1E352C;
+    --gold:#E0B868; --gold-soft:#332A17; --focus:#7CB3EC;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Be Vietnam Pro', system-ui, sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  .wrap{max-width:900px;margin-inline:auto;padding-inline:20px;}
+  h1,h2,h3{font-family:'Literata', Georgia, serif; text-wrap:balance; margin:0;}
+  :focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+
+  .ic{width:16px;height:16px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px;}
+
+  .hero{background:linear-gradient(180deg, var(--jade-soft), var(--paper) 70%);padding-block:48px 28px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--jade);font-weight:600;}
+  .hero h1{font-size:clamp(2rem, 5vw, 3rem);font-weight:600;margin-block:10px 6px;letter-spacing:-.01em;}
+  .hero p.lede{font-size:1.05rem;color:var(--ink-soft);max-width:46ch;margin:0 0 28px;}
+
+  .route{width:100%;height:auto;display:block;margin-top:8px;}
+  .route text{font-family:'Be Vietnam Pro', sans-serif;}
+  .route .city{font-size:12.5px;font-weight:600;fill:var(--ink);}
+  .route .origin{font-size:11.5px;font-weight:500;}
+  .route .sub{font-size:10.5px;fill:var(--ink-soft);}
+
+  nav.jump{position:sticky;top:0;z-index:5;background:color-mix(in srgb, var(--surface) 92%, transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  nav.jump .wrap{display:flex;align-items:center;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none;}
+  nav.jump .wrap::-webkit-scrollbar{display:none;}
+  nav.jump a{flex-shrink:0;font-size:13px;font-weight:600;padding:7px 13px;border-radius:999px;background:var(--jade-soft);color:var(--jade);text-decoration:none;white-space:nowrap;}
+  .lang-switch{flex-shrink:0;margin-left:auto;display:flex;gap:2px;background:var(--line);padding:3px;border-radius:999px;}
+  .lang-switch button{border:none;background:none;font:inherit;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;color:var(--ink-soft);cursor:pointer;}
+  .lang-switch button.active{background:var(--surface);color:var(--jade);}
+
+  section{padding-block:40px;scroll-margin-top:58px;}
+  section + section{border-top:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:22px;flex-wrap:wrap;}
+  .section-head h2{font-size:1.6rem;font-weight:600;}
+  .section-head .count{font-size:13px;color:var(--ink-soft);}
+
+  .families{display:grid;grid-template-columns:repeat(auto-fit, minmax(270px,1fr));gap:16px;}
+  .family{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;border-top:4px solid var(--accent);}
+  .family.onofrei{--accent:var(--lacquer);}
+  .family.miron{--accent:var(--gold);}
+  .family h3{font-size:1.2rem;font-weight:600;margin-bottom:2px;}
+  .family .dates{font-size:13px;color:var(--ink-soft);margin-bottom:14px;}
+  .timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .timeline li{display:flex;gap:10px;font-size:14px;align-items:baseline;}
+  .timeline .day{font-weight:600;min-width:4.2em;color:var(--accent);}
+  .timeline .open{color:var(--ink-soft);font-style:italic;}
+
+  .phuquoc-note{margin-top:18px;padding:12px 16px;border-radius:12px;background:var(--gold-soft);font-size:13.5px;color:var(--ink);display:flex;gap:8px;align-items:flex-start;}
+  .caution-note{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--lacquer-soft);font-size:13.5px;color:var(--ink);display:flex;gap:10px;align-items:flex-start;}
+  .caution-note strong{color:var(--lacquer);}
+
+  .prep-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(260px,1fr));gap:14px;}
+  .prep-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;}
+  .prep-card h4{font-family:'Be Vietnam Pro';font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--jade);font-weight:700;margin:0 0 8px;}
+  .prep-card p{font-size:14px;line-height:1.5;margin:0;color:var(--ink-soft);}
+  .prep-card a{color:var(--jade);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+
+  .subhead{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);margin:28px 0 10px;}
+  .subhead:first-of-type{margin-top:18px;}
+
+  .apps-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(230px,1fr));gap:10px;}
+  .app-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:5px;}
+  .app-card .name{font-weight:600;font-size:14.5px;display:flex;align-items:center;gap:8px;}
+  .app-card .name a{text-decoration:none;color:var(--ink);}
+  .app-card .name a:hover{color:var(--jade);}
+  .app-card .desc{font-size:12.5px;color:var(--ink-soft);}
+  .app-card .stores{display:flex;gap:12px;margin-top:2px;}
+  .app-card .stores a{font-size:12px;font-weight:600;color:var(--jade);text-decoration:underline;text-underline-offset:2px;}
+  .fact-bar{margin-top:14px;font-size:13.5px;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .fact-bar strong{color:var(--ink);}
+
+  .dest-head{display:flex;align-items:center;gap:14px;margin-bottom:4px;}
+  .dest-head h2{font-size:1.9rem;}
+  .dest-tag{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;}
+  .dest-tag.hanoi{background:var(--jade-soft);color:var(--jade);}
+  .dest-tag.sapa{background:var(--gold-soft);color:var(--gold);}
+  .dest-tag.phuquoc{background:var(--lacquer-soft);color:var(--lacquer);}
+
+  .hotel-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(230px,1fr));gap:10px;}
+  .row-group{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-bottom:6px;}
+  .row{display:inline-flex;align-items:center;gap:9px;padding:10px 13px;border-radius:11px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:14.5px;font-weight:500;flex:1 1 auto;min-width:0;}
+  .row .row-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .row .go{margin-left:auto;color:var(--ink-soft);font-size:12px;flex-shrink:0;}
+  .row:hover{border-color:var(--jade);}
+  .pin-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--jade);text-decoration:none;padding:6px 10px;border-radius:8px;background:var(--jade-soft);flex-shrink:0;}
+  .note-inline{font-size:12.5px;color:var(--ink-soft);margin-left:4px;}
+  .places-list, .restaurant-list{display:flex;flex-direction:column;gap:8px;}
+
+  footer{padding-block:32px;text-align:center;font-size:13px;color:var(--ink-soft);}
+  footer .flag{font-size:18px;}
+
+  @media (max-width:480px){
+    .hero{padding-block:36px 20px;}
+    .row .row-text{white-space:normal;}
+  }
+</style>
+</head>
+<body>
+
+<div id="page">
+
+<nav class="jump" aria-label="Jump to section">
+  <div class="wrap">
+    <a href="#itineraries" data-i18n="nav.itineraries">Itinerarii</a>
+    <a href="#prep" data-i18n="nav.prep">Pregătire</a>
+    <a href="#hanoi">Hà Nội</a>
+    <a href="#sapa">Sa Pa</a>
+    <a href="#phuquoc">Phú Quốc</a>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="ro" class="active">RO</button>
+      <button type="button" data-lang-btn="en">EN</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">15 nov. – 1 dec. · Vietnam</div>
+    <h1 data-i18n="hero.title">Două familii, o singură insulă</h1>
+    <p class="lede" data-i18n="hero.lede">Familia Onofrei zboară din Zürich, familia Miron din București via Beijing — drumuri separate prin Hà Nội și Sa Pa, reunite pe Phú Quốc în ultimele zile.</p>
+
+    <svg class="route" viewBox="0 0 580 160" role="img" aria-label="Route map">
+      <text x="14" y="30" class="origin" fill="var(--lacquer)">Zürich</text>
+      <path d="M20 40 C 70 40, 90 78, 140 82" stroke="var(--lacquer)" stroke-width="2" fill="none" stroke-dasharray="2 5" stroke-linecap="round"/>
+
+      <text x="14" y="128" class="origin" fill="var(--gold)">București</text>
+      <text x="14" y="142" class="sub" data-i18n="route.beijing">→ escală Beijing</text>
+      <path d="M20 118 C 70 118, 90 86, 140 84" stroke="var(--gold)" stroke-width="2" fill="none" stroke-dasharray="2 5" stroke-linecap="round"/>
+
+      <circle cx="150" cy="83" r="7" fill="var(--jade)"/>
+      <text x="150" y="68" class="city" text-anchor="middle">Hà Nội</text>
+
+      <path d="M157 83 L 330 83" stroke="var(--jade)" stroke-width="2" fill="none"/>
+      <circle cx="340" cy="83" r="7" fill="var(--jade)"/>
+      <text x="340" y="68" class="city" text-anchor="middle">Sa Pa</text>
+
+      <path d="M347 83 L 500 83" stroke="var(--jade)" stroke-width="2" fill="none"/>
+      <circle cx="515" cy="83" r="13" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+      <circle cx="515" cy="83" r="6" fill="var(--lacquer)"/>
+      <text x="515" y="60" class="city" text-anchor="middle">Phú Quốc</text>
+      <text x="515" y="108" class="sub" text-anchor="middle" data-i18n="route.together">împreună · zile libere</text>
+    </svg>
+  </div>
+</header>
+
+<section id="itineraries">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="itin.h2">Itinerariile familiilor</h2>
+      <span class="count" data-i18n="itin.count">zboruri confirmate · zilele libere se aleg din ghidul de mai jos</span>
+    </div>
+
+    <div class="families">
+      <article class="family onofrei">
+        <h3 data-i18n="itin.onofrei.name">Familia Onofrei</h3>
+        <div class="dates">15 – 30 noiembrie</div>
+        <ul class="timeline">
+          <li><span class="day">15 nov.</span> <span data-i18n="itin.onofrei.d1">Plecare Zürich, 10:55</span></li>
+          <li><span class="day">16 nov.</span> <span data-i18n="itin.onofrei.d2">Sosire Hà Nội, 07:05</span></li>
+          <li><span class="day">17–30 nov.</span> <span class="open" data-i18n="itin.open">liber — alege din ghidul de mai jos</span></li>
+          <li><span class="day">30 nov.</span> <span data-i18n="itin.onofrei.d3">Plecare, 08:45</span> <span class="note-inline" data-i18n="itin.onofrei.note">(verifică aplicația Turkish Airlines)</span></li>
+        </ul>
+      </article>
+
+      <article class="family miron">
+        <h3 data-i18n="itin.miron.name">Familia Miron</h3>
+        <div class="dates">20 noiembrie – 1 decembrie</div>
+        <ul class="timeline">
+          <li><span class="day">20 nov.</span> <span data-i18n="itin.miron.d1">Plecare București, 16:25</span></li>
+          <li><span class="day">21 nov.</span> Beijing — <span class="open" data-i18n="itin.miron.d2">zi liberă întreagă</span></li>
+          <li><span class="day">22 nov.</span> <span data-i18n="itin.miron.d3">Sosire Hà Nội, 03:15</span></li>
+          <li><span class="day">23 nov.–1 dec.</span> <span class="open" data-i18n="itin.open">liber — alege din ghidul de mai jos</span></li>
+          <li><span class="day">1 dec.</span> <span data-i18n="itin.miron.d4">Întoarcere, 13:30</span> <span class="note-inline" data-i18n="itin.miron.note">(verifică aplicația Beijing Airlines)</span></li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="phuquoc-note">
+      <svg class="ic" style="margin-top:2px;" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg>
+      <span data-i18n="itin.phuquocnote">Ambele familii ajung pe <strong>Phú Quốc</strong> pentru partea finală a călătoriei. Restul — Hà Nội, Sa Pa și câte zile merg unde — rămâne alegerea fiecărei familii, din același ghid comun.</span>
+    </div>
+  </div>
+</section>
+
+<section id="prep">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="prep.h2">Înainte să pleci</h2>
+    </div>
+
+    <div class="prep-grid">
+      <div class="prep-card">
+        <h4 data-i18n="prep.passport.h">Pașaport</h4>
+        <p data-i18n="prep.passport.p">Valabil cel puțin 6 luni de la sosirea în Vietnam.</p>
+      </div>
+      <div class="prep-card">
+        <h4 data-i18n="prep.flight.h">Zbor retur / continuare</h4>
+        <p data-i18n="prep.flight.p">Dovada plecării din Vietnam în cele 45 de zile fără viză, sau în perioada de valabilitate a eVisei.</p>
+      </div>
+      <div class="prep-card">
+        <h4 data-i18n="prep.hotel.h">Detalii cazare</h4>
+        <p data-i18n="prep.hotel.p">Confirmarea hotelului sau adresa pentru prima noapte.</p>
+      </div>
+      <div class="prep-card">
+        <h4 data-i18n="prep.declaration.h">Declarație pre-sosire</h4>
+        <p><span data-i18n="prep.declaration.p1">Se completează cu 72 de ore înainte de plecare pe</span> <a href="https://prearrival.immigration.gov.vn/" target="_blank" rel="noopener">prearrival.immigration.gov.vn</a> — <span data-i18n="prep.declaration.p2">alege</span> <strong>"Unilateral Exemption"</strong> <span data-i18n="prep.declaration.p3">ca bază de intrare.</span></p>
+      </div>
+      <div class="prep-card">
+        <h4 data-i18n="prep.fasttrack.h">Fast-track aeroport</h4>
+        <p><span data-i18n="prep.fasttrack.p1">Rezervă din timp trecerea rapidă prin </span><a href="https://s.klook.com/c/Z1zrY_D5wP" target="_blank" rel="noopener">Klook</a><span data-i18n="prep.fasttrack.p2">, înainte de plecare.</span></p>
+      </div>
+    </div>
+
+    <div class="subhead" data-i18n="prep.apps.h">Aplicații &amp; servicii esențiale</div>
+    <div class="apps-grid">
+      <div class="app-card">
+        <div class="name"><svg class="ic" viewBox="0 0 20 20"><rect x="2" y="2" width="6" height="6" rx="1.3"/><rect x="12" y="2" width="6" height="6" rx="1.3"/><rect x="2" y="12" width="6" height="6" rx="1.3"/><rect x="12" y="12" width="6" height="6" rx="1.3"/></svg><a href="https://moretapay.com/" target="_blank" rel="noopener">Moreta Pay</a></div>
+        <div class="desc" data-i18n="apps.moreta.d">Plăți prin cod QR; numerar nerecomandat</div>
+        <div class="stores">
+          <a href="https://apps.apple.com/us/app/moreta-pay/id6590609636" target="_blank" rel="noopener" data-i18n="store.ios">App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.moreta.moretamobile" target="_blank" rel="noopener" data-i18n="store.android">Google Play</a>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="name"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><a href="https://www.getyourguide.com" target="_blank" rel="noopener">GetYourGuide</a> &amp; <a href="https://www.klook.com" target="_blank" rel="noopener">Klook</a></div>
+        <div class="desc" data-i18n="apps.excursions.d">Excursii și bilete</div>
+      </div>
+
+      <div class="app-card">
+        <div class="name"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><a href="https://12go.asia" target="_blank" rel="noopener">12Go</a></div>
+        <div class="desc" data-i18n="apps.12go.d">Tren, autobuz, feribot, zboruri interne</div>
+        <div class="stores">
+          <a href="https://apps.apple.com/us/app/12go-train-bus-ferry-flight/id1492054704" target="_blank" rel="noopener" data-i18n="store.ios">App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=co.go12.ticketapp" target="_blank" rel="noopener" data-i18n="store.android">Google Play</a>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="name"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><a href="https://www.grab.com/vn/en/download/" target="_blank" rel="noopener">Grab</a></div>
+        <div class="desc" data-i18n="apps.grab.d">Transport &amp; livrări — aplicație separată, descărcare oficială</div>
+      </div>
+
+      <div class="app-card">
+        <div class="name"><svg class="ic" viewBox="0 0 20 20"><rect x="2" y="2" width="6" height="6" rx="1.3"/><rect x="12" y="2" width="6" height="6" rx="1.3"/><rect x="2" y="12" width="6" height="6" rx="1.3"/><rect x="12" y="12" width="6" height="6" rx="1.3"/></svg><a href="https://www.ubigi.com/ubigi-app/" target="_blank" rel="noopener">Ubigi</a></div>
+        <div class="desc" data-i18n="apps.ubigi.d">eSIM internet — instalează înainte de plecare</div>
+        <div class="stores">
+          <a href="https://apps.apple.com/us/app/ubigi-travel-esim-data-plan/id1375857674" target="_blank" rel="noopener" data-i18n="store.ios">App Store</a>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="name"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><a href="https://www.agoda.com" target="_blank" rel="noopener">Agoda</a> &amp; <a href="https://www.booking.com" target="_blank" rel="noopener">Booking.com</a></div>
+        <div class="desc" data-i18n="apps.stays.d">Cazare</div>
+      </div>
+
+      <div class="app-card">
+        <div class="name"><svg class="ic" viewBox="0 0 20 20"><path d="M2 11.5 18 5l-6.5 7L13 18l-3-4.3L6 17l.3-3.8L2 11.5Z"/></svg><a href="https://www.vietnamairlines.com/us/en/app" target="_blank" rel="noopener">Vietnam Airlines</a></div>
+        <div class="desc" data-i18n="apps.va.d">Zboruri internaționale</div>
+        <div class="stores">
+          <a href="https://apps.apple.com/us/app/vietnam-airlines/id1472323081" target="_blank" rel="noopener" data-i18n="store.ios">App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.vietnamairlines.android.app" target="_blank" rel="noopener" data-i18n="store.android">Google Play</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="fact-bar">
+      <svg class="ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 2"/></svg>
+      <span data-i18n="prep.rate">Curs valutar: <strong>1 EUR ≈ 28.985 VND</strong></span>
+    </div>
+
+    <div class="caution-note">
+      <svg class="ic" style="margin-top:2px;" viewBox="0 0 20 20"><path d="M10 2 1 17h18L10 2Z"/><path d="M10 8v4"/><circle cx="10" cy="14.5" r=".6" fill="currentColor"/></svg>
+      <span data-i18n="prep.poisoning">În caz de <strong>toxiinfecție alimentară</strong>, mergi la o farmacie ("nhà thuốc") și cere: <strong>Smecta</strong> (diaree), <strong>Oresol / Oréosol</strong> (săruri de rehidratare) și <strong>Carbo-Namilem / Carba Namilem</strong> (cărbune activat). Nu necesită rețetă — se găsesc la orice farmacie din oraș.</span>
+    </div>
+  </div>
+</section>
+
+<section id="hanoi">
+  <div class="wrap">
+    <div class="dest-head">
+      <h2>Hà Nội</h2>
+      <span class="dest-tag hanoi" data-i18n="hanoi.tag">Capitală · oraș vechi</span>
+    </div>
+
+    <div class="subhead" data-i18n="l.hotels">Hoteluri</div>
+    <div class="hotel-grid">
+      <a class="row" href="https://www.agoda.com/sh-app/VjP1KIL8WzP" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Hotel Option 1</span><span class="go">↗</span></a>
+      <a class="row" href="https://www.agoda.com/sh-app/tntgBC1tGj8" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Hotel Option 2</span><span class="go">↗</span></a>
+      <a class="row" href="https://www.agoda.com/sh-app/pXybYBqvNfs" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Hotel Option 3</span><span class="go">↗</span></a>
+      <a class="row" href="https://www.agoda.com/sh-app/18Ewt5TjucY" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Hotel Option 4</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead"><span data-i18n="l.places">Locuri de vizitat</span> — <span data-i18n="l.cruises">croaziere</span></div>
+    <div class="places-list">
+      <div class="row-group">
+        <a class="row" href="https://s.klook.com/c/gXB7JMe5w8" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">Luxury Cruise — 2 Days</span><span class="go">↗</span></a>
+        <span class="note-inline" data-i18n="hanoi.cruise.note">transfer din Hà Nội inclus</span>
+      </div>
+      <div class="row-group">
+        <a class="row" href="https://s.klook.com/c/VwepQYPAXJ" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">Alternative 1-Day Cruise</span><span class="go">↗</span></a>
+        <a class="pin-link" href="https://maps.app.goo.gl/z25MtKnec5b537gs6" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span data-i18n="l.map">Hartă</span></a>
+      </div>
+    </div>
+
+    <div class="subhead"><span data-i18n="l.places">Locuri de vizitat</span> — <span data-i18n="l.tours">tururi ghidate</span></div>
+    <div class="places-list">
+      <div class="row-group">
+        <a class="row" href="https://s.klook.com/c/Vy5E8AzzwD" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">Incense Village Tour — Half Day</span><span class="go">↗</span></a>
+        <a class="pin-link" href="https://maps.app.goo.gl/rDUDZGycj4T9KBL36" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span data-i18n="l.map">Hartă</span></a>
+      </div>
+      <div class="row-group">
+        <a class="row" href="https://s.klook.com/c/mXkMdNWrXQ" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">Ninh Binh Day Tour</span><span class="go">↗</span></a>
+        <a class="pin-link" href="https://maps.app.goo.gl/XWwstYb8qAp5x5Vv9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span data-i18n="l.map">Hartă</span></a>
+      </div>
+    </div>
+
+    <div class="subhead" data-i18n="hanoi.inside">În Hà Nội</div>
+    <div class="places-list">
+      <div class="row-group">
+        <a class="row" href="https://maps.app.goo.gl/CyzFbSFn1fTybgpq9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span class="row-text">Train Street</span><span class="go">↗</span></a>
+        <a class="pin-link" href="https://maps.app.goo.gl/JkyTUBsTd4aeCFUq9" target="_blank" rel="noopener" data-i18n="hanoi.cafeview">Cea mai bună vedere pt. cafea</a>
+      </div>
+      <a class="row" href="https://maps.app.goo.gl/Kz1cq6odx1tsccBX7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span class="row-text">Loading T Café</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/4NL1a827peF3Cd4M9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span class="row-text">Nice Bar</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/tcA3ZsivfGiSjgUF9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span class="row-text">Imperial Citadel of Thăng Long</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/T3VGbbgJfN6L9673A" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span class="row-text">Temple of Literature</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead"><span data-i18n="l.restaurants">Restaurante</span> — Michelin</div>
+    <div class="restaurant-list">
+      <a class="row" href="https://maps.app.goo.gl/BJkWUcqs6aTN3ETs5" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Tầm vị (1-star)</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead"><span data-i18n="l.restaurants">Restaurante</span> — phở</div>
+    <div class="restaurant-list">
+      <a class="row" href="https://maps.app.goo.gl/eQMFqtisZ9eStRs98" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Phở 10 Lý Quốc Sư</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/CP1C4A84TKdHEvTf9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Bảo Hằng – Bít Tết Ngon Số 5</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead"><span data-i18n="l.restaurants">Restaurante</span> — pizza</div>
+    <div class="restaurant-list">
+      <a class="row" href="https://maps.app.goo.gl/YSMJGHo2UMVRwbHT7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Pizza 4P's Bảo Khánh</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead"><span data-i18n="l.restaurants">Restaurante</span> — <span data-i18n="l.duck">rață</span></div>
+    <div class="restaurant-list">
+      <a class="row" href="https://maps.app.goo.gl/RvWygsfyhVidtuwh7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Don Duck Old Quarter Restaurant</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead"><span data-i18n="l.restaurants">Restaurante</span> — bún chả</div>
+    <div class="restaurant-list">
+      <a class="row" href="https://maps.app.goo.gl/DUTgXgwjFAAkLLqP6" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Bún chả Hương Liên</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/stBDoQDrbpfZQdWs7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Bun Cha Ta Hanoi</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/JjvqsQWWcsnEa2vEA" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Tuyết Bún Chả 34</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/4xQLYYMHfebbRUA19" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Bún chả 74 Hàng Quạt</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/nwQHKrqYw59dySLB9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Bún Chả Đắc Kim</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead" data-i18n="hanoi.spa">Haine &amp; spa</div>
+    <div class="places-list">
+      <div class="row-group">
+        <a class="row" href="https://s.klook.com/c/vXnBvrJN3D" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">Spa Service</span><span class="go">↗</span></a>
+        <a class="pin-link" href="https://maps.app.goo.gl/8CySDDXyLCC3ws6s6" target="_blank" rel="noopener"><span data-i18n="l.map">Hartă</span></a>
+      </div>
+      <div class="row-group">
+        <a class="row" href="https://maps.app.goo.gl/a6CTAtPsreskvXzk6" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M7 2 4 4 2 7l2 2 1-1v10h10V8l1 1 2-2-2-3-3-2-1 2H8L7 2Z"/></svg><span class="row-text">Custom Suit Tailoring</span><span class="go">↗</span></a>
+        <a class="pin-link" href="https://eng.nhuttailor.vn/" target="_blank" rel="noopener" data-i18n="hanoi.tailor">Programare Nhut Tailor</a>
+      </div>
+      <a class="row" href="https://maps.app.goo.gl/9S4h4fgLmKryRGBU9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M7 2 4 4 2 7l2 2 1-1v10h10V8l1 1 2-2-2-3-3-2-1 2H8L7 2Z"/></svg><span class="row-text">Clothing Customization</span><span class="go">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="sapa">
+  <div class="wrap">
+    <div class="dest-head">
+      <h2>Sa Pa</h2>
+      <span class="dest-tag sapa" data-i18n="sapa.tag">Munte · terase</span>
+    </div>
+
+    <div class="subhead" data-i18n="l.hotels">Hoteluri</div>
+    <div class="hotel-grid">
+      <a class="row" href="https://www.agoda.com/sh-app/bP0MFQloCae" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">DeLaMont Sapa Hotel — Hill Serenity Retreat</span><span class="go">↗</span></a>
+      <a class="row" href="https://www.agoda.com/sh-app/EGuEO62ViH6" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Sapa CatCat Hills Resort &amp; Spa</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead" data-i18n="l.places">Locuri de vizitat</div>
+    <div class="places-list">
+      <a class="row" href="https://share.google/37yTksdUp5Z1m4LwB" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span class="row-text">Cable Car Station</span><span class="go">↗</span></a>
+      <div class="row-group">
+        <a class="row" href="https://s.klook.com/c/mXbBzxEWyB" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">Sun World Fansipan Legend Ticket</span><span class="go">↗</span></a>
+        <a class="pin-link" href="https://maps.app.goo.gl/cJPPMrye9TAg7vJw7" target="_blank" rel="noopener"><span data-i18n="l.map">Hartă</span></a>
+      </div>
+      <a class="row" href="https://maps.app.goo.gl/vKGE6osC2soEfAtb8" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span class="row-text">Moana Sapa</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead" data-i18n="l.restaurants">Restaurante</div>
+    <div class="restaurant-list">
+      <a class="row" href="https://maps.app.goo.gl/NV8nXty72WWgKo246" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">FAMILY Sapa</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/8y5m6huNqqT7NgwW7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Bánh Mỳ Phương Nhi</span><span class="go">↗</span><span class="note-inline" data-i18n="l.mustvisit">de neratat</span></a>
+      <a class="row" href="https://maps.app.goo.gl/Qfjq72qBrSdnK7r37" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Paradise Restaurant</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/MiDx7jPXA2jdtM9Y7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Viettrekking Coffee &amp; Restaurant</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/FJxFmMPV6uH6eCWf9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Tim's Sa Pa Kitchen</span><span class="go">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="phuquoc">
+  <div class="wrap">
+    <div class="dest-head">
+      <h2>Phú Quốc</h2>
+      <span class="dest-tag phuquoc" data-i18n="phuquoc.tag">Insulă · împreună</span>
+    </div>
+
+    <div class="subhead" data-i18n="l.hotels">Hoteluri</div>
+    <div class="hotel-grid">
+      <a class="row" href="https://www.agoda.com/sh-app/NAYcrkLRB4A" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Coco Island Retreat Phú Quốc</span><span class="go">↗</span></a>
+      <a class="row" href="https://www.agoda.com/sh-app/cDC9vgNwvWv" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Rocks Beach Boutique</span><span class="go">↗</span></a>
+      <a class="row" href="https://www.agoda.com/sh-app/UMLhDFL30S4" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Hula Hula Beachfront Phu Quoc</span><span class="go">↗</span></a>
+      <a class="row" href="https://www.agoda.com/sh-app/dbxurNl3Cfo" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Mai Phuong Resort Phu Quoc</span><span class="go">↗</span></a>
+      <a class="row" href="https://www.agoda.com/sh-app/N9awGjzA8bw" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Rosie Hillside Seaview Apartment</span><span class="go">↗</span></a>
+      <a class="row" href="https://www.agoda.com/sh-app/PQQrnV31EjK" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Blanca Vista Apartment — Sunset Town</span><span class="go">↗</span></a>
+      <a class="row" href="https://www.agoda.com/sh-app/MwbiRUiGr2c" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 15V6M2 11h16v4M6 11V8.5A1.5 1.5 0 0 1 7.5 7h2A1.5 1.5 0 0 1 11 8.5V11M18 15v-2.5A1.5 1.5 0 0 0 16.5 11"/></svg><span class="row-text">Seaside Fireworks Apartment — Gym &amp; Pool</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead" data-i18n="l.places">Locuri de vizitat</div>
+    <div class="places-list">
+      <a class="row" href="https://maps.app.goo.gl/jL3LXKipr1UYevGs9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span class="row-text">Sunset Town</span><span class="go">↗</span></a>
+      <a class="row" href="https://s.klook.com/c/xwW4n9Brw6" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">3-Island Hopping — Buom, Gầm Ghì, Mây Rút Snorkeling</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/4ysSmrPpChH5MR7d9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg><span class="row-text">Cable Car Phu Quoc</span><span class="go">↗</span></a>
+      <a class="row" href="https://s.klook.com/c/zXm50_kJwJ" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">Vinpearl Safari Phu Quoc Ticket</span><span class="go">↗</span></a>
+      <a class="row" href="https://s.klook.com/c/_wo4DokoX9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">Sun World Hòn Thơm Ticket</span><span class="go">↗</span></a>
+      <a class="row" href="https://s.klook.com/c/E1xNYrakX8" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">Northern Day Tour — Kayak, Starfish Beach, Rạch Vẹm</span><span class="go">↗</span></a>
+      <a class="row" href="https://gyg.me/ABg6U65J" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">VinWonders, Safari &amp; Lunch with Aquarium Views</span><span class="go">↗</span></a>
+      <a class="row" href="https://s.klook.com/c/z3m50_bBXJ" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M2 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.4 1.4 0 0 0 0 2v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a1.4 1.4 0 0 0 0-2V8Z"/><path d="M8 5v10" stroke-dasharray="1.6 1.6"/></svg><span class="row-text">Snorkeling Day Tour — Coral Jungle Reef</span><span class="go">↗</span></a>
+    </div>
+
+    <div class="subhead" data-i18n="l.restaurants">Restaurante</div>
+    <div class="restaurant-list">
+      <a class="row" href="https://maps.app.goo.gl/i4dHUxAiohTAivmD8" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Camia Restaurant</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/iHvMSfkNPogz1LEk7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Ann Seafood</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/nwCZwZ4AnRYDhL6T8" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">Mai Hương Restaurant — Grand World</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/NosraoHkMTp5vesu9" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">NONÊ Kitchen &amp; Bar</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/XJP5Chdhr3LcdtN98" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">OCSEN Beach Bar &amp; Club</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/od2PnzuhkDPG8R5R7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">On The Rock Restaurant &amp; Beach Bar</span><span class="go">↗</span></a>
+      <a class="row" href="https://maps.app.goo.gl/Vuz3piurTAZxwqDb7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 20 20"><path d="M5 2v6a1.5 1.5 0 0 0 3 0V2M6.5 8v10M14 2c-1.5 0-2.5 2-2.5 4.5S12.5 11 14 11v7"/></svg><span class="row-text">ANBA COFFEE</span><span class="go">↗</span><span class="note-inline" data-i18n="l.breakfast">mic dejun</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="flag">🇻🇳</span><br>
+  <span data-i18n="footer">Familiile Onofrei &amp; Miron · construit din documentul comun de planificare — linkurile reflectă sursa, neverificate independent.</span>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var dict = {
+    en: {
+      "nav.itineraries":"Itineraries","nav.prep":"Prep",
+      "hero.title":"Two families, one island",
+      "hero.lede":"The Onofreis fly from Zürich, the Mirons from București via Beijing — separate routes through Hà Nội and Sa Pa, reunited on Phú Quốc for the final days.",
+      "route.beijing":"→ Beijing layover","route.together":"together · allocated days",
+      "itin.h2":"Family itineraries","itin.count":"confirmed flights · open days to plan from the guide below",
+      "itin.onofrei.name":"Onofrei Family","itin.onofrei.d1":"Depart Zürich, 10:55","itin.onofrei.d2":"Arrive Hà Nội, 07:05",
+      "itin.open":"open — choose from the guide below",
+      "itin.onofrei.d3":"Depart, 08:45","itin.onofrei.note":"(check Turkish Airlines app)",
+      "itin.miron.name":"Miron Family","itin.miron.d1":"Depart București, 16:25","itin.miron.d2":"full day, open","itin.miron.d3":"Arrive Hà Nội, 03:15",
+      "itin.miron.d4":"Return, 13:30","itin.miron.note":"(check Beijing Airlines app)",
+      "itin.phuquocnote":"Both families land on <strong>Phú Quốc</strong> for the trip's final stretch. Everything else — Hà Nội, Sa Pa, and how many days go where — is each family's own call from the same shared guide.",
+      "prep.h2":"Before you go",
+      "prep.passport.h":"Passport","prep.passport.p":"Valid for at least 6 months past arrival in Vietnam.",
+      "prep.flight.h":"Onward / return flight","prep.flight.p":"Proof of departure within the 45-day visa-free allowance, or your eVisa validity.",
+      "prep.hotel.h":"Accommodation details","prep.hotel.p":"Hotel confirmation or local address for the first night.",
+      "prep.declaration.h":"Pre-arrival declaration","prep.declaration.p1":"Complete within 72 hours of departure at","prep.declaration.p2":"select","prep.declaration.p3":"as entry basis.",
+      "prep.fasttrack.h":"Airport fast-track","prep.fasttrack.p1":"Book the fast-track line through ","prep.fasttrack.p2":", before you go.",
+      "prep.apps.h":"Essential apps &amp; services",
+      "apps.moreta.d":"QR code payments; cash not recommended",
+      "apps.excursions.d":"Excursions &amp; tickets",
+      "apps.12go.d":"Trains, buses, ferries, domestic flights",
+      "apps.grab.d":"Rides &amp; delivery — separate app, official download",
+      "apps.ubigi.d":"eSIM data — install before you leave",
+      "apps.stays.d":"Accommodation",
+      "apps.va.d":"International flights",
+      "store.ios":"App Store","store.android":"Google Play",
+      "prep.rate":"Exchange rate: <strong>1 EUR ≈ 28,985 VND</strong>",
+      "prep.poisoning":"In case of <strong>food poisoning</strong>, go to a pharmacy (\\u201cnhà thuốc\\u201d) and ask for: <strong>Smecta</strong> (diarrhea), <strong>Oresol / Oréosol</strong> (rehydration salts), and <strong>Carbo-Namilem / Carba Namilem</strong> (activated charcoal). No prescription needed — available at any pharmacy in town.",
+      "hanoi.tag":"Capital · old quarter","l.hotels":"Hotels","l.places":"Places to visit","l.cruises":"cruises","l.tours":"guided tours",
+      "hanoi.inside":"Inside Hà Nội","hanoi.cafeview":"Best café viewpoint",
+      "l.restaurants":"Restaurants","l.duck":"duck","hanoi.spa":"Clothing &amp; spa","l.map":"Map","hanoi.tailor":"Nhut Tailor booking",
+      "sapa.tag":"Highlands · terraces","l.mustvisit":"must visit",
+      "phuquoc.tag":"Island · together","l.breakfast":"breakfast",
+      "footer":"Onofrei &amp; Miron families · built from the shared planning doc — links reflect the source, not independently verified."
+    }
+  };
+  var root = document.getElementById('page');
+  var original = {};
+  root.querySelectorAll('[data-i18n]').forEach(function(el){ original[el.getAttribute('data-i18n')] = original[el.getAttribute('data-i18n')] || el.innerHTML; });
+
+  function apply(lang){
+    root.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if(lang === 'en' && dict.en[key]){ el.innerHTML = dict.en[key]; }
+      else { el.innerHTML = original[key]; }
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang-btn') === lang);
+    });
+    try { localStorage.setItem('vn-lang', lang); } catch(e){}
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn){
+    btn.addEventListener('click', function(){ apply(btn.getAttribute('data-lang-btn')); });
+  });
+
+  var saved = 'ro';
+  try { saved = localStorage.getItem('vn-lang') || 'ro'; } catch(e){}
+  if (saved === 'en') apply('en');
+})();
+</script>
+</body>
+</html>
