@@ -8,7 +8,7 @@ tags: [agent, briefing, vietnam-itinerary]
 
 ## Your Role
 
-A Tier-0 static site under [[vibe_coder]] — the shared, public travel guide for the Onofrei and
+A Tier-0 static site under [[vibe-coder]] — the shared, public travel guide for the Onofrei and
 Miron families' November 2026 Vietnam trip. One page, no build step, no backend.
 
 ## How to Operate
@@ -63,4 +63,4 @@ to proceed as-is rather than anonymize or keep it private. If that changes, reda
 ## Rules
 
 - Never commit `.env` or credentials (none expected on this project).
-- Re-run [[security_checker]] before any future push, same as every other repo.
+- Re-run [[security-checker]] before any future push, same as every other repo.

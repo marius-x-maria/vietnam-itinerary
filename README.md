@@ -27,5 +27,5 @@ changes meaningfully.
 
 ## Stack
 
-Plain HTML/CSS/JS — Tier 0, zero-build static site (per [[vibe_coder]] doctrine). Hosted on
+Plain HTML/CSS/JS — Tier 0, zero-build static site (per [[vibe-coder]] doctrine). Hosted on
 GitHub Pages from `main` / root.

@@ -6,4 +6,4 @@ tags: [index, moc, vietnam-itinerary]
 
 # Skills — Vietnam Itinerary
 
-None yet. Runs under the shared [[vibe_coder]] doctrine (Tier 0 static site).
+None yet. Runs under the shared [[vibe-coder]] doctrine (Tier 0 static site).
