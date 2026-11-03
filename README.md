@@ -29,3 +29,10 @@ changes meaningfully.
 
 Plain HTML/CSS/JS — Tier 0, zero-build static site (per [[vibe-coder]] doctrine). Hosted on
 GitHub Pages from `main` / root.
+
+## Linked notes
+- [[vietnam-itinerary/AGENT|AGENT.md]]
+- [[vietnam-itinerary/knowledge-base/README|knowledge-base/README.md]]
+- [[vietnam-itinerary/skills/README|skills/README.md]]
+- [[vietnam-itinerary/tools/README|tools/README.md]]
+- [[vietnam-itinerary/workflows/README|workflows/README.md]]
