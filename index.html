@@ -561,7 +561,7 @@
       "store.ios":"App Store","store.android":"Google Play",
       "prep.rate":"Exchange rate: <strong>1 EUR ≈ 28,985 VND</strong>",
       "prep.poisoning":"In case of <strong>food poisoning</strong>, go to a pharmacy (\\u201cnhà thuốc\\u201d) and ask for: <strong>Smecta</strong> (diarrhea), <strong>Oresol / Oréosol</strong> (rehydration salts), and <strong>Carbo-Namilem / Carba Namilem</strong> (activated charcoal). No prescription needed — available at any pharmacy in town.",
-      "prep.phrases":"A few handy <strong>basic Vietnamese words</strong> before you go — <a href=\\"https://www.instagram.com/p/Db0I9Z5p-VW/\\" target=\\"_blank\\" rel=\\"noopener\\">see the guide on Instagram</a>.",
+      "prep.phrases":"A few handy <strong>basic Vietnamese words</strong> before you go — <a href=\"https://www.instagram.com/p/Db0I9Z5p-VW/\" target=\"_blank\" rel=\"noopener\">see the guide on Instagram</a>.",
       "hanoi.tag":"Capital · old quarter","l.hotels":"Hotels","l.places":"Places to visit","l.cruises":"cruises","l.tours":"guided tours",
       "hanoi.inside":"Inside Hà Nội","hanoi.cafeview":"Best café viewpoint",
       "l.restaurants":"Restaurants","l.duck":"duck","hanoi.spa":"Clothing &amp; spa","l.map":"Map","hanoi.tailor":"Nhut Tailor booking",
@@ -583,6 +583,7 @@
     document.querySelectorAll('[data-lang-btn]').forEach(function(b){
       b.classList.toggle('active', b.getAttribute('data-lang-btn') === lang);
     });
+    document.documentElement.lang = lang;
     try { localStorage.setItem('vn-lang', lang); } catch(e){}
   }
 
