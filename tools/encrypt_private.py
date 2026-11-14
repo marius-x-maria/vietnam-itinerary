@@ -1,8 +1,8 @@
-"""Encrypt the private family itinerary into index.html.
+"""Encrypt the private family itinerary into itinerary.html.
 
 Reads the clear-text HTML fragment from private/family-o.local.html (git-ignored) and the
 family code from .env (FAMILY_O_CODE). Writes an AES-256-GCM payload, with the key derived by
-PBKDF2-SHA256, into the PRIVATE_O block of index.html. The page decrypts it in the browser
+PBKDF2-SHA256, into the PRIVATE_O block of itinerary.html. The page decrypts it in the browser
 with Web Crypto once the family types the code.
 
 Strength = the code's entropy only (16 random chars from 31 ~ 79 bits). Never use a short code.
@@ -17,9 +17,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "private" / "family-o.local.html"
-PAGE = ROOT / "index.html"
+PAGE = ROOT / "itinerary.html"
 ENV = ROOT / ".env"
-ITERATIONS = 300_000  # keep identical to PRIVATE_ITER in index.html
+ITERATIONS = 300_000  # keep identical to PRIVATE_ITER in itinerary.html
 BLOCK = re.compile(r"(/\*PRIVATE_O:BEGIN\*/).*?(/\*PRIVATE_O:END\*/)", re.S)
 
 
@@ -45,7 +45,7 @@ def read_code() -> str:
 
 def plain_terms(fragment: str) -> list[str]:
     # Every visible name/address in the fragment; none may appear in the built page.
-    terms = re.findall(r'class="addr-text">([^<]+)<', fragment) + re.findall(r"<strong>([^<]+)</strong>", fragment)
+    terms = re.findall(r'data-copy="([^"]+)"', fragment) + re.findall(r"<strong>([^<]+)</strong>", fragment)
     out = set()
     for t in terms:
         t = html.unescape(t).strip()
@@ -100,7 +100,7 @@ def main() -> int:
 
     raw = PAGE.read_bytes().decode("utf-8")
     if not BLOCK.search(raw):
-        return done(False, "PRIVATE_O markers not found in index.html - restore the /*PRIVATE_O:BEGIN*/.../*PRIVATE_O:END*/ block", code=1)
+        return done(False, "PRIVATE_O markers not found in itinerary.html - restore the /*PRIVATE_O:BEGIN*/.../*PRIVATE_O:END*/ block", code=1)
     built = BLOCK.sub(lambda m: f"{m.group(1)}{payload}{m.group(2)}", raw, count=1)
     PAGE.write_bytes(built.encode("utf-8"))
 
@@ -128,7 +128,7 @@ def main() -> int:
             findings.append(f"{n} private term(s) in clear text in {f.relative_to(ROOT)} - remove them before committing")
     if findings:
         return done(False, "encrypted, but verification FAILED", findings, code=2)
-    return done(True, f"encrypted {len(fragment)} chars into index.html; round-trip ok; 0 of {len(terms)} private terms in clear text")
+    return done(True, f"encrypted {len(fragment)} chars into itinerary.html; round-trip ok; 0 of {len(terms)} private terms in clear text")
 
 
 if __name__ == "__main__":

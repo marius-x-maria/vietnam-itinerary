@@ -19,7 +19,8 @@ changes meaningfully.
 
 | Area | What's there |
 |---|---|
-| `index.html` | The entire site — single static page, no build step |
+| `index.html` | Guide page — prep, apps, destinations; links to the itinerary page |
+| `itinerary.html` | Family itineraries — switch, timeline, Map / Copy address buttons, encrypted Family O block |
 | `tools/` | Deterministic scripts (none yet — see `tools/README.md`) |
 | `workflows/` | Project-specific SOPs (none yet) |
 | `skills/` | Project-specific skills (none yet) |

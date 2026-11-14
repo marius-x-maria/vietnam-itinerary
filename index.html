@@ -69,32 +69,12 @@
   .section-head h2{font-size:1.6rem;font-weight:600;}
   .section-head .count{font-size:13px;color:var(--ink-soft);}
 
-  .families{display:grid;grid-template-columns:repeat(auto-fit, minmax(270px,1fr));gap:16px;}
-  .family{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;border-top:4px solid var(--accent);}
-  .family.fam-o{--accent:var(--lacquer);}
-  .family.fam-m{--accent:var(--gold);}
-  .family h3{font-size:1.2rem;font-weight:600;margin-bottom:2px;}
-  .family .dates{font-size:13px;color:var(--ink-soft);margin-bottom:14px;}
-  .timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
-  .timeline li{display:flex;gap:10px;font-size:14px;align-items:baseline;}
-  .timeline .day{font-weight:600;min-width:5.8em;flex-shrink:0;color:var(--accent);}
-  .timeline .open{color:var(--ink-soft);font-style:italic;}
-  .timeline .stop{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0;}
-  .timeline .stop-meta{font-size:12.5px;color:var(--ink-soft);}
-  .addr{display:flex;align-items:center;gap:8px;padding:6px 6px 6px 10px;border:1px dashed var(--line);border-radius:9px;font-size:12.5px;color:var(--ink-soft);}
-  .addr-text{flex:1;min-width:0;overflow-wrap:anywhere;}
-  .copy-btn{flex-shrink:0;border:none;font:inherit;font-size:12px;font-weight:700;padding:5px 10px;border-radius:7px;background:var(--jade-soft);color:var(--jade);cursor:pointer;}
-  .copy-btn:focus-visible,.family-switch button:focus-visible{outline:2px solid var(--jade);outline-offset:2px;}
-  .family-switch{display:inline-flex;gap:2px;background:var(--line);padding:3px;border-radius:999px;margin-bottom:16px;}
-  .family-switch button{border:none;background:none;font:inherit;font-size:13px;font-weight:700;padding:7px 14px;border-radius:999px;color:var(--ink-soft);cursor:pointer;}
-  .family-switch button[aria-pressed="true"]{background:var(--surface);color:var(--jade);}
-  .family[hidden]{display:none;}
-  html:not([lang="en"]) .en, html[lang="en"] .ro{display:none;}
-  .unlock{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;font-size:13px;color:var(--ink-soft);}
-  .unlock-row{display:flex;gap:8px;}
-  .unlock input{flex:1;min-width:0;font:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);}
-  .unlock input:focus-visible{outline:2px solid var(--jade);outline-offset:1px;}
-  .unlock-msg{font-size:12.5px;color:var(--lacquer);min-height:1em;}
+  .itin-cta{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:16px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--lacquer);text-decoration:none;color:var(--ink);}
+  .itin-cta:hover{border-color:var(--jade);}
+  .itin-cta-text{display:flex;flex-direction:column;gap:3px;}
+  .itin-cta-text strong{font-family:'Literata', Georgia, serif;font-size:1.25rem;font-weight:600;}
+  .itin-cta-text span{font-size:13.5px;color:var(--ink-soft);}
+  .itin-cta .go{margin-left:auto;font-size:1.3rem;color:var(--jade);}
 
   .phuquoc-note{margin-top:18px;padding:12px 16px;border-radius:12px;background:var(--gold-soft);font-size:13.5px;color:var(--ink);display:flex;gap:8px;align-items:flex-start;}
   .caution-note{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--lacquer-soft);font-size:13.5px;color:var(--ink);display:flex;gap:10px;align-items:flex-start;}
@@ -161,7 +141,7 @@
 
 <nav class="jump" aria-label="Jump to section">
   <div class="wrap">
-    <a href="#itineraries" data-i18n="nav.itineraries">Itinerarii</a>
+    <a href="itinerary.html" data-i18n="nav.itineraries">Itinerarii</a>
     <a href="#prep" data-i18n="nav.prep">Pregătire</a>
     <a href="#hanoi">Hà Nội</a>
     <a href="#sapa">Sa Pa</a>
@@ -205,65 +185,10 @@
 
 <section id="itineraries">
   <div class="wrap">
-    <div class="section-head">
-      <h2 data-i18n="itin.h2">Itinerariile familiilor</h2>
-      <span class="count" data-i18n="itin.count">zboruri confirmate · zilele libere se aleg din ghidul de mai jos</span>
-    </div>
-
-    <div class="family-switch" role="group" aria-label="Familie / Family">
-      <button type="button" data-family-btn="all" aria-pressed="true" data-i18n="fam.all">Ambele</button>
-      <button type="button" data-family-btn="o" aria-pressed="false" data-i18n="fam.o">Familia O</button>
-      <button type="button" data-family-btn="m" aria-pressed="false" data-i18n="fam.m">Familia M</button>
-    </div>
-
-    <div class="families">
-      <article class="family fam-o" data-family="o">
-        <h3 data-i18n="fam.o">Familia O</h3>
-        <div class="dates">15 – 30 noiembrie</div>
-        <ul class="timeline">
-          <li><span class="day">15 nov.</span> <span data-i18n="itin.o.d1">Plecare Zürich, 10:55</span></li>
-          <li><span class="day">16 nov.</span>
-            <div class="stop">
-              <span data-i18n="itin.o.d2">Sosire Hà Nội, 07:05</span>
-              <div class="addr"><span class="addr-text">Sân bay Quốc tế Nội Bài - Nhà ga T2</span><button type="button" class="copy-btn" data-copy="Sân bay Quốc tế Nội Bài - Nhà ga T2" data-i18n="l.copy">Copiază</button></div>
-            </div>
-          </li>
-          <li class="private-slot" id="private-o"><span class="day">16–30 nov.</span>
-            <form class="unlock" data-testid="unlock-form" autocomplete="off">
-              <label for="fam-code"><span data-i18n="lock.label">Cazare, zboruri interne și rezervări — vizibile doar cu codul familiei</span></label>
-              <div class="unlock-row">
-                <input id="fam-code" type="password" inputmode="text" autocapitalize="none" spellcheck="false" placeholder="xxxx-xxxx-xxxx-xxxx" data-testid="unlock-input">
-                <button type="submit" class="copy-btn" data-i18n="lock.btn">Deblochează</button>
-              </div>
-              <span class="unlock-msg" role="status" aria-live="polite"></span>
-            </form>
-          </li>
-          <li><span class="day">30 nov.</span>
-            <div class="stop">
-              <span><span data-i18n="itin.o.d3">Plecare spre Zürich, 08:45</span> <span class="note-inline" data-i18n="itin.o.note">(verifică aplicația Turkish Airlines)</span></span>
-              <div class="addr"><span class="addr-text">Sân bay Quốc tế Nội Bài - Nhà ga T2</span><button type="button" class="copy-btn" data-copy="Sân bay Quốc tế Nội Bài - Nhà ga T2" data-i18n="l.copy">Copiază</button></div>
-            </div>
-          </li>
-        </ul>
-      </article>
-
-      <article class="family fam-m" data-family="m">
-        <h3 data-i18n="fam.m">Familia M</h3>
-        <div class="dates">20 noiembrie – 1 decembrie</div>
-        <ul class="timeline">
-          <li><span class="day">20 nov.</span> <span data-i18n="itin.m.d1">Plecare București, 16:25</span></li>
-          <li><span class="day">21 nov.</span> Beijing — <span class="open" data-i18n="itin.m.d2">zi liberă întreagă</span></li>
-          <li><span class="day">22 nov.</span> <span data-i18n="itin.m.d3">Sosire Hà Nội, 03:15</span></li>
-          <li><span class="day">23 nov.–1 dec.</span> <span class="open" data-i18n="itin.open">liber — alege din ghidul de mai jos</span></li>
-          <li><span class="day">1 dec.</span> <span data-i18n="itin.m.d4">Întoarcere, 13:30</span> <span class="note-inline" data-i18n="itin.m.note">(verifică aplicația Beijing Airlines)</span></li>
-        </ul>
-      </article>
-    </div>
-
-    <div class="phuquoc-note">
-      <svg class="ic" style="margin-top:2px;" viewBox="0 0 20 20"><path d="M10 18s6-6.6 6-10.8A6 6 0 0 0 4 7.2C4 11.4 10 18 10 18Z"/><circle cx="10" cy="7.2" r="2"/></svg>
-      <span data-i18n="itin.phuquocnote">Ambele familii ajung pe <strong>Phú Quốc</strong> pentru partea finală a călătoriei. Restul — Hà Nội, Sa Pa și câte zile merg unde — rămâne alegerea fiecărei familii, din același ghid comun.</span>
-    </div>
+    <a class="itin-cta" href="itinerary.html">
+      <span class="itin-cta-text"><strong data-i18n="itin.cta.h">Itinerariile familiilor</strong><span data-i18n="itin.cta.p">Zboruri, cazare și rezervări — pe pagina dedicată</span></span>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
   </div>
 </section>
 
@@ -591,15 +516,7 @@
       "hero.title":"Two families, one island",
       "hero.lede":"Family O flies from Zürich, Family M from București via Beijing — separate routes through Hà Nội and Sa Pa, reunited on Phú Quốc for the final days.",
       "route.beijing":"→ Beijing layover","route.together":"together · allocated days",
-      "itin.h2":"Family itineraries","itin.count":"confirmed flights · open days to plan from the guide below",
-      "fam.all":"Both","fam.o":"Family O","fam.m":"Family M",
-      "itin.o.d1":"Depart Zürich, 10:55","itin.o.d2":"Arrive Hà Nội, 07:05",
-      "itin.open":"open — choose from the guide below",
-      "lock.label":"Stays, domestic flights and bookings — visible only with the family code","lock.btn":"Unlock",
-      "itin.o.d3":"Depart for Zürich, 08:45","itin.o.note":"(check Turkish Airlines app)",
-      "l.copy":"Copy","l.checkin":"check-in","l.checkout":"check-out","itin.m.d1":"Depart București, 16:25","itin.m.d2":"full day, open","itin.m.d3":"Arrive Hà Nội, 03:15",
-      "itin.m.d4":"Return, 13:30","itin.m.note":"(check Beijing Airlines app)",
-      "itin.phuquocnote":"Both families land on <strong>Phú Quốc</strong> for the trip's final stretch. Everything else — Hà Nội, Sa Pa, and how many days go where — is each family's own call from the same shared guide.",
+      "itin.cta.h":"Family itineraries","itin.cta.p":"Flights, stays and bookings — on their own page",
       "prep.h2":"Before you go",
       "prep.passport.h":"Passport","prep.passport.p":"Valid for at least 6 months past arrival in Vietnam.",
       "prep.flight.h":"Onward / return flight","prep.flight.p":"Proof of departure within the 45-day visa-free allowance, or your eVisa validity.",
@@ -632,12 +549,9 @@
   var original = {};
   root.querySelectorAll('[data-i18n]').forEach(function(el){ original[el.getAttribute('data-i18n')] = original[el.getAttribute('data-i18n')] || el.innerHTML; });
 
-  var currentLang = 'ro';
   function apply(lang){
-    currentLang = lang;
     root.querySelectorAll('[data-i18n]').forEach(function(el){
       var key = el.getAttribute('data-i18n');
-      if (!(key in original)) original[key] = el.innerHTML; // elements injected after load (unlocked block) are still Romanian here
       if(lang === 'en' && dict.en[key]){ el.innerHTML = dict.en[key]; }
       else { el.innerHTML = original[key]; }
     });
@@ -669,77 +583,6 @@
   try { appsSaved = localStorage.getItem('vn-apps') || '1'; } catch(e){}
   setApps(appsSaved !== '0');
 
-  // Family filter — show both or one family's itinerary; choice remembered per viewer
-  var famBtns = document.querySelectorAll('[data-family-btn]');
-  function setFamily(f){
-    famBtns.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-family-btn') === f ? 'true' : 'false'); });
-    document.querySelectorAll('.family[data-family]').forEach(function(a){ a.hidden = (f !== 'all' && a.getAttribute('data-family') !== f); });
-    try { localStorage.setItem('vn-family', f); } catch(e){}
-  }
-  famBtns.forEach(function(b){ b.addEventListener('click', function(){ setFamily(b.getAttribute('data-family-btn')); }); });
-  var famSaved = 'all';
-  try { famSaved = localStorage.getItem('vn-family') || 'all'; } catch(e){}
-  setFamily(['all','o','m'].indexOf(famSaved) >= 0 ? famSaved : 'all');
-
-  // Copy-to-clipboard for addresses (paste into Grab)
-  function copyText(t){
-    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t);
-    return new Promise(function(res, rej){
-      var ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
-      document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy') ? res() : rej(); } catch(e){ rej(e); } finally { document.body.removeChild(ta); }
-    });
-  }
-  // Delegated, so buttons inside the unlocked block work too
-  root.addEventListener('click', function(ev){
-    var btn = ev.target.closest('.copy-btn[data-copy]');
-    if (!btn) return;
-    var label = btn.innerHTML;
-    copyText(btn.getAttribute('data-copy')).then(function(){
-      btn.innerHTML = currentLang === 'en' ? 'Copied ✓' : 'Copiat ✓';
-      setTimeout(function(){ btn.innerHTML = label; }, 1500);
-    }, function(){ /* clipboard blocked — address text stays visible for manual copy */ });
-  });
-
-  // Private itinerary: AES-GCM payload written by tools/encrypt_private.py; key = PBKDF2(family code)
-  var PRIVATE_O = /*PRIVATE_O:BEGIN*/{"s": "Sl4pWRrHTVvlGvMNsel14w==", "i": "OGH1pYip8aWJt2za", "c": "gTbEFenNcmnX4QwMlWN6ba8QH7Xxvw7zasAGlrAQBMmhth6KM+LwP+74gA7H0BDlYQzYGPosurAqUzIEf7lUbO2nTGS1ASbKcdLgvfjp3pbR9X3LFN7sL65LiYIhY6QasZ7TtxZ3NKatVSmmBlvCX1ek3CmNrleIKA0LwQmODDqGHsfeKpg4rW7eTCpA1koe22ZL19Hn4DU4wWhxcYmOHchngv3EhhW8NAIOWg54OaM6q+XJ4WDvkpY/xBT1jVtDHq+6vYoruWusMZ6tBUQ6Ho5tJ4D5JmMvI/QOotTWLcbog81h0oDUfYpoXpQs1nY2QWsQNpkHLGNyz7rXGA2HtFrL4ufUnQ9pr6bSWUqm15BrYIlJSN/aUDX+6718uyzNoUyEc6vh0PkslpUSA5Q2IzWYjF/lxvGrQEwargkr/LkfCsfSyMJvWwl5C5ej6C//SvdP5npNOhXHb9C2xelmJaGQNVSCgCGKfkh05JF3Al8y2XUoPF98JcFyWmVn3bPv/cRntkJE74RoiIotFhcv8FUJZ+MmXuSo4xaCjVt48Bc64UIxuw+CGKH3gu044J6PVZ1nNpymbJEJ3ZydnbSO4X2+Z0cgRkQfe4qaOElM1NqeiH4Tkg0aub+mT/aQqvXwzuAXdEcBwZcWiHK1sAinD7e6f0IzVDpZepVXf07v9W51+NV+rUe2mzTb5c52hXzDLOM3Z8RbOgSF47UKdLXMHP57rXZMqwS8KsK3yhyoiJxpGOoq9F0+DMjLrDqJ7knqGyboogTlh/FAy6P6LZFG9XIh7ZbufMLbQVh3DIg9UNHUkygjXf3wTZ+tP9agfMKYPxcS8KNKgXmwZBF8jsILHLzQR631mOdbNfk90L4rA+Xjj10sa5PcHRjxUmKapsX7EhJ16mP6puincbgEQoevomvaBdPydv/6C/CnyQZarwr2GbcoFfLKnqpptAd4Lsb67AcG30ABl+V3Fwpx8xzjoKRKcexwSkyymIbUKT1U1Okn4GplVs8O7YM9uX/EbHlEueIZ1l+0ZwxYy1yr5/ZqM9HbgRUYnWOP476BRbwxfN2uieuYwt8hq2EbbcDGoMCqtJR2W5krcvcTTkmGxKeqlAxNV/HTeOOxSjYqlmNpjOGruxMgKKBzYAoJBP5yuUGn8tGalN+f8XSjLO2tLFDIosbcCE0YNltVyWTPAvLDEyW9O18GuEHND3WtrXV1XiHsOimSNlsn5YGcU8qWBN/YrTrSX4e2Fvw0cGM43PP8QCUonJoKblygwagfYIsd7xX1B8nmuLRJssp/iY0HAjVi9b7wUox1kWbg1nw5kkH35bkpWysWQ7n01lLLhdAWi8I+pTp+rtqy5lmR1y28ZSz9HmPC9N38drOULti4AHeOkBJezuW/M3vDRy5zsjCTcvHK10k73c72xY60ODOk0ZbbWCzGbXJLAL1mOJt8aKCjR9KS0S1VTN/TfsWgpKIGow886TW5kQjUZtqn8Cf2h9Qpb7Mt/gs6HCynq2ztKE9RyLoeQMU6Gmx4EMj5be3Hs5M1nARxhECwUIDlVxo43P6C+3+NhZ2Sa/3xh+vqPpSMX653avpKt9Ta42fNEBlPu+XMGL3Bgc4XDrs6vOBnHu9SINM6nnnkhbhymS22GhFirrgCEI22tLlYWm0x7I7wGZA4KjNf2YdLudO4u88EPlRWl9kMehTI2iRrybSYa6QV5V8VYgJo4wynnANa+HhPV7lfZKgvOeOMnK17FkZBNthxDDIk6zbOmGrnoWLRSrPZxUqLX2aPRH9EJ2YIKxR0UZaclKxyaxZCIe31xHk7I90ywth2a4XOpZTV6nC8tZ72hmVLQZUGsbLf280mev1Z9JUWGzhF80zBAs8RZX4TJoOynGOhaa8uWGRQS/xYKOPHaE8yozAkE3OxJD/o0MAc7bDVHofVttlh2ZWf8CvFESumGwIEUx1dip3pJRGxfJC13VSUMc79qja2xtb1DV5N9YS3ebKG2zRwkThkwWUHBp3Z+E6kuo5fIfDsA59nhkw8xKqMdz7+HZBkM65erABfZYppnnMepgg+9xvCs5jC3ZTnBLrBwphbghLhNNstDHra/wDqA53dYQlCRp/tJsLKqSKbZZVFMYlsZyRv0hHg/BMFUPsizwCexSoWZx6bpaEnC/tfYHLcYMwXHtNyxP8WbP0izSo/1EIi0DwvMHfbAmYbm2Pp0+aUIrWflCs733GVQr2RHURhhML7yjXwqLwUdtivTGmwg+m2/ON2mbuaqN/1xADEntxw61UmIQmKxf2I1/cozYsTZAJsWNHR+nwBCtUjkyxHx1vlxwFhPIHhw6guJ/F0WEinfp3yDQeh2RNmlEHj5Ky9FjVcka+makFDLKMjBtp39/I+T1VizSgCx/IhvoqokIVTZ4oHg8l0ISgT4gvXlyopioDrG9TSRW/PnTVOI5L+ikQDav7XPgIxKVoPhmtLcUe/8bCL/4V5f+gXx1QCjFY7ebFcyN+a+R5KaLoeOuY2jQ6aHln4IzdB9pBJL/1S/VL4P6Pn6/vpCICxyN2HlqNoxYqs3S0xCJ/5BTrqSOHX3wCAziySyHhzHRU3j+q5cTdJBvy5qFu+tc7bSeR8usJgWYC6towgq/19ERb1G4m4f24vZF1paZUIHXZ170TsPuXXKHCPybRrmMjpG/Dx3OEq/ZlDusK5jM/63DTA67CAHX74WM5wv2hp6OmNRvpYkrNtpPhiwauGFYL+M8jdz+xqaOj7HF2d8X85s/+izX+ZcjuDVxujs3aRHbktKZOf4SEZib3CUObFRQTN9Nwn3rHPfK84pnHuK7qJYJIqK2E+sV+08qoQxj+IJgTNkkNoTpnWumKC24IQl3QpT7fboNjOOdUPulQ0VIdG+87R4iOIfL4JRbExVhGIxlfgvT56E2d2cDLwe1U++1dWyf1KIRNlRExX9IuVpAMIoQFSVgXbFQVsyUzd8MUq/sVntqJrEerKXvwSP58+rF64CKPK3ZV09q3MKk27VRg9rGhDB+voJkXMxA3ka4FCaQfphOSCAC63toG+w0Zo/PWvkzn2XW+Ga7LlBWk55Dv/PatQ5i2FSfs5sB8LmuorM9cisooKs4CWauSB79swc0QbjQ/qmW/odR4i9PsfwFPvgn34cAbe9DL1HilkKqno9ziUW6RX1mMX+YThYEZTEiHJsK8LFayb76M9KjmKg3uLi4+mTbiw1ap5L+OPNqsWyZifCqzv10kOmCRQang45E5xTYhMeGOOZv9FBcpBCvKWh8luWq00SxjWfRyQZ7XIeay4KVv1gMAvzaPTlqQK14aRTJ5V2ryJXOC2gmRm0Qp1PiwYpek632fiufhf0t1xiEGZERo/NA91FFvvCCRpMKgy4bWthS6XREuGL03E5sqrfcMvaL94gYJgU2zS5G6I+phvydwkfCEixXPnpt/i06CBh9uS2U8raTHBnPTruUM3A2zzfY4bQI6/6/IPEghxJ3WWZLyslms6kQrhUC0dqM66hz+uRvZAkf55+RwlEewQtLD0By2qSN03HevS6HO0OuMtx6d2RPp9KVYTK5i9uy+2L9HBQEdUfoLY0Rg2fqqAFN6qno5HKwl/pKgG8/wJhdMthkbSO9sni3561Szdma/icMXP3tIITGuoDxX7fWYiGi8udpPrzl2yGd1G8CXZM8WTvZjTIBTMxGMojPtGSPyC5PlpwNs6KTvanX9WqMyn5AYbDeHzBGtYWkzqEWvLwMdfqEQV0+/Wk7VQEPGI+YrNBgTO7MYL18xdtyA/5gLam8Ot1psc2rjsp8WFsF6zDPkcMb2l3fgToGsy8v0RdeFDgOCX2JTmAnZtR0O1NIWjfBno3pfB3mmzI3z30Ii9dvUIBJS7S2yvIpfc5K7EE7dD0bXe2lg5J1T1Uij5l0+933QUXvPMFtaYczVASezhysKFM/JddRhePmKwIKV/S3ZE3l5OQCyCJt3ATdHtFcgZFYixH4H4n+5JTfAVNjEXCEaxz9dHVM8VXTN6Xg4nAL+G/zoE0Zlxx12TZXLsGQeoWR5r6XNmRxhjJydFavnEyMMYHYUoIdYXZ/i6svWZserr9TnNvLMqY4Yyh9HEPhVXbNTFD4HZFQfWgWUMEUYLyShcufY2OiaxP5lXgl+yE4sJei01APa7tXuE6zd1TEwbbFaVd68DBCdT18NlAYyjIzTFwj/K2GaYrcCWUOiTmjyZAavOwJanMgrqiaqtd9yk5nnSkQaqGbUzkwoZeEBgPkIXmDfNKfbyBzXw4D45O1kP1vAuU6tSv1pq1JlsN76+9t67VGnziUOWMedTPO84bT4GwnyXWWrsj5QN2fXRhRvpfqL2WuT35nlqXEzE5cjDPfLInLQPz1CuG3lfHyg3v3nfGzm+n05RujLB4r5nxt8nwJ1KCOJPAQSiFQOG8lGepmIFQGUmDKaiUA2G7ZXwn5Sqpd+uAJJN63iUysFyHnZyehlwQfIWuhPOYRYQ5W8Y6Gom4Fx/Gj8/JAouf6lP293nIl0EaOMxfo58h4uN+XzjRIB7OeOEBIWvbXUmGErE1Hw9cDRC1I30N0Sfx7pbxPDPpa/J52oSak+iz5YnVU3Uv75t4Au+NxtLNs5zVvNjatudgmztjaPBSm71p4L/fQpkgXWPVq7U936vEXvlgMBqpxR7abHKkDC2WIjQBSK8"}/*PRIVATE_O:END*/;
-  var PRIVATE_ITER = 300000; // keep identical to ITERATIONS in tools/encrypt_private.py
-  var slot = document.getElementById('private-o');
-  var form = slot && slot.querySelector('.unlock');
-  function b64(s){ return Uint8Array.from(atob(s), function(c){ return c.charCodeAt(0); }); }
-  function norm(c){ return (c || '').replace(/[\s-]/g, '').toLowerCase(); }
-  function decrypt(code){
-    var enc = new TextEncoder();
-    return crypto.subtle.importKey('raw', enc.encode(norm(code)), 'PBKDF2', false, ['deriveKey'])
-      .then(function(base){ return crypto.subtle.deriveKey({name:'PBKDF2', salt:b64(PRIVATE_O.s), iterations:PRIVATE_ITER, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, false, ['decrypt']); })
-      .then(function(key){ return crypto.subtle.decrypt({name:'AES-GCM', iv:b64(PRIVATE_O.i)}, key, b64(PRIVATE_O.c)); })
-      .then(function(buf){ return new TextDecoder().decode(buf); });
-  }
-  function reveal(htmlText){
-    var tpl = document.createElement('template'); tpl.innerHTML = htmlText.trim();
-    slot.replaceWith(tpl.content);
-    apply(currentLang);
-  }
-  function msg(ro, en){ form.querySelector('.unlock-msg').textContent = currentLang === 'en' ? en : ro; }
-  if (form) {
-    form.addEventListener('submit', function(ev){
-      ev.preventDefault();
-      if (!PRIVATE_O) { msg('Detaliile nu sunt încă publicate.', 'Details are not published yet.'); return; }
-      if (!window.crypto || !crypto.subtle) { msg('Browserul nu poate decripta aici (e nevoie de HTTPS).', 'This browser cannot decrypt here (HTTPS needed).'); return; }
-      var code = form.querySelector('input').value;
-      msg('Se verifică…', 'Checking…');
-      decrypt(code).then(function(t){
-        try { localStorage.setItem('vn-famcode', norm(code)); } catch(e){}
-        reveal(t);
-      }, function(){ msg('Cod greșit.', 'Wrong code.'); });
-    });
-    // Same device, already unlocked once: open silently
-    var savedCode = null;
-    try { savedCode = localStorage.getItem('vn-famcode'); } catch(e){}
-    if (savedCode && PRIVATE_O && window.crypto && crypto.subtle) {
-      decrypt(savedCode).then(reveal, function(){ try { localStorage.removeItem('vn-famcode'); } catch(e){} });
-    }
-  }
 })();
 </script>
 </body>
