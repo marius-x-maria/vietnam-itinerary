@@ -1,6 +1,6 @@
 ---
 name: vietnam-itinerary
-description: Map of Content — public travel guide for the Onofrei & Miron families' November 2026 Vietnam trip
+description: Map of Content — public travel guide for two families' (O and M) November 2026 Vietnam trip
 tags: [index, moc, web, vietnam-itinerary]
 ---
 
@@ -23,7 +23,8 @@ changes meaningfully.
 | `tools/` | Deterministic scripts (none yet — see `tools/README.md`) |
 | `workflows/` | Project-specific SOPs (none yet) |
 | `skills/` | Project-specific skills (none yet) |
-| `knowledge-base/` | Reserved for future structured trip notes |
+| `knowledge-base/` | Sourced snapshots (e.g. the EUR→VND rate) |
+| `vietnam-itinerary-fetch-log.md` | [[vietnam-itinerary-fetch-log]] — every external fetch: source, date, result |
 
 ## Stack
 

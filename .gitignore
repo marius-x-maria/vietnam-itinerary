@@ -8,3 +8,7 @@ Thumbs.db
 
 # WAT framework — disposable intermediates
 .tmp/
+
+# Private family itinerary source (hotel names, addresses, reservations) — clear text never goes in git.
+# tools/encrypt_private.py encrypts it into index.html with the code in .env (FAMILY_O_CODE).
+private/

@@ -8,8 +8,8 @@ tags: [agent, briefing, vietnam-itinerary]
 
 ## Your Role
 
-A Tier-0 static site under [[vibe-coder]] — the shared, public travel guide for the Onofrei and
-Miron families' November 2026 Vietnam trip. One page, no build step, no backend.
+A Tier-0 static site under [[vibe-coder]] — the shared, public travel guide for two families' (O and M) November 2026 Vietnam trip.
+One page, no backend; one encryption step for private details (below).
 
 ## How to Operate
 
@@ -50,15 +50,22 @@ served via GitHub Pages from root.
 | Live sync with the Google Doc | `absent` | Manual re-publish, not automated |
 | Embedded maps | `absent` | Links open externally (Google Maps / Klook / etc.) |
 | Build tooling | `removed` | Deliberately zero-build Tier 0 — matches `wedding`/`electronics-website` |
+| Encrypted private itinerary | `included` | `tools/encrypt_private.py` + unlock form in `index.html` |
 | Automated tests | `absent` | No test need for a static content page |
 
-## Known Trade-off (flagged to Marius, accepted)
+## Private Data Decision (2026-11-14, Marius chose option A)
 
-This page is **public** and names both families by surname with exact travel dates — a minor
-physical-security consideration (signals when both households are away). Marius explicitly chose
-to proceed as-is rather than anonymize or keep it private. If that changes, redact surnames to
-"Family 1"/"Family 2" in `index.html` and keep real names only in the private Google Doc / the
-`itinerary-app` project.
+- Surnames are replaced by "Familia O" / "Familia M" on the page. Older git history still holds
+  the full names; accepted, not rewritten.
+- Hotel names, addresses, check-in times, domestic flight times and reservations are **sensitive**
+  (they show where a family sleeps each night). They are never in clear text in a served file.
+- Clear-text source: `private/family-o.local.html` (git-ignored). `tools/encrypt_private.py`
+  encrypts it (PBKDF2-SHA256 300k → AES-256-GCM) into the `PRIVATE_O` block of `index.html`.
+  The key is `FAMILY_O_CODE` in `.env`: 16 random chars (~79 bits). Shared with the family by
+  private message only. The page decrypts it with Web Crypto and remembers the code per device.
+- To change the private itinerary: edit the private file → run the tool → it verifies the
+  round trip and that no private term is left in clear text (exit 2 if it is).
+- Strength = code entropy only. Never replace it with a short or guessable code.
 
 ## Rules
 

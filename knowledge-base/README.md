@@ -6,5 +6,7 @@ tags: [index, moc, vietnam-itinerary]
 
 # Knowledge Base — Vietnam Itinerary
 
-Empty for now. The live content lives in `index.html` and the families' shared Google Doc;
+- [[fx-eur-vnd-2026-11-14]] — EUR→VND rate shown on the site, with sources and fetch date
+
+Mostly empty. The live content lives in `index.html` and the families' shared Google Doc;
 this is reserved for any structured notes that don't belong directly in the page.

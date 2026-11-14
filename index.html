@@ -71,14 +71,30 @@
 
   .families{display:grid;grid-template-columns:repeat(auto-fit, minmax(270px,1fr));gap:16px;}
   .family{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;border-top:4px solid var(--accent);}
-  .family.onofrei{--accent:var(--lacquer);}
-  .family.miron{--accent:var(--gold);}
+  .family.fam-o{--accent:var(--lacquer);}
+  .family.fam-m{--accent:var(--gold);}
   .family h3{font-size:1.2rem;font-weight:600;margin-bottom:2px;}
   .family .dates{font-size:13px;color:var(--ink-soft);margin-bottom:14px;}
   .timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
   .timeline li{display:flex;gap:10px;font-size:14px;align-items:baseline;}
-  .timeline .day{font-weight:600;min-width:4.2em;color:var(--accent);}
+  .timeline .day{font-weight:600;min-width:5.8em;flex-shrink:0;color:var(--accent);}
   .timeline .open{color:var(--ink-soft);font-style:italic;}
+  .timeline .stop{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0;}
+  .timeline .stop-meta{font-size:12.5px;color:var(--ink-soft);}
+  .addr{display:flex;align-items:center;gap:8px;padding:6px 6px 6px 10px;border:1px dashed var(--line);border-radius:9px;font-size:12.5px;color:var(--ink-soft);}
+  .addr-text{flex:1;min-width:0;overflow-wrap:anywhere;}
+  .copy-btn{flex-shrink:0;border:none;font:inherit;font-size:12px;font-weight:700;padding:5px 10px;border-radius:7px;background:var(--jade-soft);color:var(--jade);cursor:pointer;}
+  .copy-btn:focus-visible,.family-switch button:focus-visible{outline:2px solid var(--jade);outline-offset:2px;}
+  .family-switch{display:inline-flex;gap:2px;background:var(--line);padding:3px;border-radius:999px;margin-bottom:16px;}
+  .family-switch button{border:none;background:none;font:inherit;font-size:13px;font-weight:700;padding:7px 14px;border-radius:999px;color:var(--ink-soft);cursor:pointer;}
+  .family-switch button[aria-pressed="true"]{background:var(--surface);color:var(--jade);}
+  .family[hidden]{display:none;}
+  html:not([lang="en"]) .en, html[lang="en"] .ro{display:none;}
+  .unlock{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;font-size:13px;color:var(--ink-soft);}
+  .unlock-row{display:flex;gap:8px;}
+  .unlock input{flex:1;min-width:0;font:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);}
+  .unlock input:focus-visible{outline:2px solid var(--jade);outline-offset:1px;}
+  .unlock-msg{font-size:12.5px;color:var(--lacquer);min-height:1em;}
 
   .phuquoc-note{margin-top:18px;padding:12px 16px;border-radius:12px;background:var(--gold-soft);font-size:13.5px;color:var(--ink);display:flex;gap:8px;align-items:flex-start;}
   .caution-note{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--lacquer-soft);font-size:13.5px;color:var(--ink);display:flex;gap:10px;align-items:flex-start;}
@@ -161,7 +177,7 @@
   <div class="wrap">
     <div class="eyebrow">15 nov. – 1 dec. · Vietnam</div>
     <h1 data-i18n="hero.title">Două familii, o singură insulă</h1>
-    <p class="lede" data-i18n="hero.lede">Familia Onofrei zboară din Zürich, familia Miron din București via Beijing — drumuri separate prin Hà Nội și Sa Pa, reunite pe Phú Quốc în ultimele zile.</p>
+    <p class="lede" data-i18n="hero.lede">Familia O zboară din Zürich, familia M din București via Beijing — drumuri separate prin Hà Nội și Sa Pa, reunite pe Phú Quốc în ultimele zile.</p>
 
     <svg class="route" viewBox="0 0 580 160" role="img" aria-label="Route map">
       <text x="14" y="30" class="origin" fill="var(--lacquer)">Zürich</text>
@@ -194,27 +210,52 @@
       <span class="count" data-i18n="itin.count">zboruri confirmate · zilele libere se aleg din ghidul de mai jos</span>
     </div>
 
+    <div class="family-switch" role="group" aria-label="Familie / Family">
+      <button type="button" data-family-btn="all" aria-pressed="true" data-i18n="fam.all">Ambele</button>
+      <button type="button" data-family-btn="o" aria-pressed="false" data-i18n="fam.o">Familia O</button>
+      <button type="button" data-family-btn="m" aria-pressed="false" data-i18n="fam.m">Familia M</button>
+    </div>
+
     <div class="families">
-      <article class="family onofrei">
-        <h3 data-i18n="itin.onofrei.name">Familia Onofrei</h3>
+      <article class="family fam-o" data-family="o">
+        <h3 data-i18n="fam.o">Familia O</h3>
         <div class="dates">15 – 30 noiembrie</div>
         <ul class="timeline">
-          <li><span class="day">15 nov.</span> <span data-i18n="itin.onofrei.d1">Plecare Zürich, 10:55</span></li>
-          <li><span class="day">16 nov.</span> <span data-i18n="itin.onofrei.d2">Sosire Hà Nội, 07:05</span></li>
-          <li><span class="day">17–30 nov.</span> <span class="open" data-i18n="itin.open">liber — alege din ghidul de mai jos</span></li>
-          <li><span class="day">30 nov.</span> <span data-i18n="itin.onofrei.d3">Plecare, 08:45</span> <span class="note-inline" data-i18n="itin.onofrei.note">(verifică aplicația Turkish Airlines)</span></li>
+          <li><span class="day">15 nov.</span> <span data-i18n="itin.o.d1">Plecare Zürich, 10:55</span></li>
+          <li><span class="day">16 nov.</span>
+            <div class="stop">
+              <span data-i18n="itin.o.d2">Sosire Hà Nội, 07:05</span>
+              <div class="addr"><span class="addr-text">Sân bay Quốc tế Nội Bài - Nhà ga T2</span><button type="button" class="copy-btn" data-copy="Sân bay Quốc tế Nội Bài - Nhà ga T2" data-i18n="l.copy">Copiază</button></div>
+            </div>
+          </li>
+          <li class="private-slot" id="private-o"><span class="day">16–30 nov.</span>
+            <form class="unlock" data-testid="unlock-form" autocomplete="off">
+              <label for="fam-code"><span data-i18n="lock.label">Cazare, zboruri interne și rezervări — vizibile doar cu codul familiei</span></label>
+              <div class="unlock-row">
+                <input id="fam-code" type="password" inputmode="text" autocapitalize="none" spellcheck="false" placeholder="xxxx-xxxx-xxxx-xxxx" data-testid="unlock-input">
+                <button type="submit" class="copy-btn" data-i18n="lock.btn">Deblochează</button>
+              </div>
+              <span class="unlock-msg" role="status" aria-live="polite"></span>
+            </form>
+          </li>
+          <li><span class="day">30 nov.</span>
+            <div class="stop">
+              <span><span data-i18n="itin.o.d3">Plecare spre Zürich, 08:45</span> <span class="note-inline" data-i18n="itin.o.note">(verifică aplicația Turkish Airlines)</span></span>
+              <div class="addr"><span class="addr-text">Sân bay Quốc tế Nội Bài - Nhà ga T2</span><button type="button" class="copy-btn" data-copy="Sân bay Quốc tế Nội Bài - Nhà ga T2" data-i18n="l.copy">Copiază</button></div>
+            </div>
+          </li>
         </ul>
       </article>
 
-      <article class="family miron">
-        <h3 data-i18n="itin.miron.name">Familia Miron</h3>
+      <article class="family fam-m" data-family="m">
+        <h3 data-i18n="fam.m">Familia M</h3>
         <div class="dates">20 noiembrie – 1 decembrie</div>
         <ul class="timeline">
-          <li><span class="day">20 nov.</span> <span data-i18n="itin.miron.d1">Plecare București, 16:25</span></li>
-          <li><span class="day">21 nov.</span> Beijing — <span class="open" data-i18n="itin.miron.d2">zi liberă întreagă</span></li>
-          <li><span class="day">22 nov.</span> <span data-i18n="itin.miron.d3">Sosire Hà Nội, 03:15</span></li>
+          <li><span class="day">20 nov.</span> <span data-i18n="itin.m.d1">Plecare București, 16:25</span></li>
+          <li><span class="day">21 nov.</span> Beijing — <span class="open" data-i18n="itin.m.d2">zi liberă întreagă</span></li>
+          <li><span class="day">22 nov.</span> <span data-i18n="itin.m.d3">Sosire Hà Nội, 03:15</span></li>
           <li><span class="day">23 nov.–1 dec.</span> <span class="open" data-i18n="itin.open">liber — alege din ghidul de mai jos</span></li>
-          <li><span class="day">1 dec.</span> <span data-i18n="itin.miron.d4">Întoarcere, 13:30</span> <span class="note-inline" data-i18n="itin.miron.note">(verifică aplicația Beijing Airlines)</span></li>
+          <li><span class="day">1 dec.</span> <span data-i18n="itin.m.d4">Întoarcere, 13:30</span> <span class="note-inline" data-i18n="itin.m.note">(verifică aplicația Beijing Airlines)</span></li>
         </ul>
       </article>
     </div>
@@ -347,7 +388,7 @@
 
     <div class="fact-bar">
       <svg class="ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 2"/></svg>
-      <span data-i18n="prep.rate">Curs valutar: <strong>1 EUR ≈ 28.985 VND</strong></span>
+      <span data-i18n="prep.rate">Curs valutar: <strong>1 EUR ≈ 28.400 VND</strong></span>
     </div>
 
     <div class="caution-note">
@@ -537,7 +578,7 @@
 
 <footer>
   <span class="flag">🇻🇳</span><br>
-  <span data-i18n="footer">Familiile Onofrei &amp; Miron · construit din documentul comun de planificare — linkurile reflectă sursa, neverificate independent.</span>
+  <span data-i18n="footer">Familiile O &amp; M · construit din documentul comun de planificare — linkurile reflectă sursa, neverificate independent.</span>
 </footer>
 
 </div>
@@ -548,14 +589,16 @@
     en: {
       "nav.itineraries":"Itineraries","nav.prep":"Prep",
       "hero.title":"Two families, one island",
-      "hero.lede":"The Onofreis fly from Zürich, the Mirons from București via Beijing — separate routes through Hà Nội and Sa Pa, reunited on Phú Quốc for the final days.",
+      "hero.lede":"Family O flies from Zürich, Family M from București via Beijing — separate routes through Hà Nội and Sa Pa, reunited on Phú Quốc for the final days.",
       "route.beijing":"→ Beijing layover","route.together":"together · allocated days",
       "itin.h2":"Family itineraries","itin.count":"confirmed flights · open days to plan from the guide below",
-      "itin.onofrei.name":"Onofrei Family","itin.onofrei.d1":"Depart Zürich, 10:55","itin.onofrei.d2":"Arrive Hà Nội, 07:05",
+      "fam.all":"Both","fam.o":"Family O","fam.m":"Family M",
+      "itin.o.d1":"Depart Zürich, 10:55","itin.o.d2":"Arrive Hà Nội, 07:05",
       "itin.open":"open — choose from the guide below",
-      "itin.onofrei.d3":"Depart, 08:45","itin.onofrei.note":"(check Turkish Airlines app)",
-      "itin.miron.name":"Miron Family","itin.miron.d1":"Depart București, 16:25","itin.miron.d2":"full day, open","itin.miron.d3":"Arrive Hà Nội, 03:15",
-      "itin.miron.d4":"Return, 13:30","itin.miron.note":"(check Beijing Airlines app)",
+      "lock.label":"Stays, domestic flights and bookings — visible only with the family code","lock.btn":"Unlock",
+      "itin.o.d3":"Depart for Zürich, 08:45","itin.o.note":"(check Turkish Airlines app)",
+      "l.copy":"Copy","l.checkin":"check-in","l.checkout":"check-out","itin.m.d1":"Depart București, 16:25","itin.m.d2":"full day, open","itin.m.d3":"Arrive Hà Nội, 03:15",
+      "itin.m.d4":"Return, 13:30","itin.m.note":"(check Beijing Airlines app)",
       "itin.phuquocnote":"Both families land on <strong>Phú Quốc</strong> for the trip's final stretch. Everything else — Hà Nội, Sa Pa, and how many days go where — is each family's own call from the same shared guide.",
       "prep.h2":"Before you go",
       "prep.passport.h":"Passport","prep.passport.p":"Valid for at least 6 months past arrival in Vietnam.",
@@ -574,7 +617,7 @@
       "apps.booking.d":"Accommodation",
       "apps.va.d":"International flights",
       "store.ios":"App Store","store.android":"Google Play",
-      "prep.rate":"Exchange rate: <strong>1 EUR ≈ 28,985 VND</strong>",
+      "prep.rate":"Exchange rate: <strong>1 EUR ≈ 28,400 VND</strong>",
       "prep.poisoning":"In case of <strong>food poisoning</strong>, go to a pharmacy (\\u201cnhà thuốc\\u201d) and ask for: <strong>Smecta</strong> (diarrhea), <strong>Oresol / Oréosol</strong> (rehydration salts), and <strong>Carbo-Namilem / Carba Namilem</strong> (activated charcoal). No prescription needed — available at any pharmacy in town.",
       "prep.phrases":"A few handy <strong>basic Vietnamese words</strong> before you go — <a href=\"https://www.instagram.com/p/Db0I9Z5p-VW/\" target=\"_blank\" rel=\"noopener\">see the guide on Instagram</a>.",
       "hanoi.tag":"Capital · old quarter","l.hotels":"Hotels","l.places":"Places to visit","l.cruises":"cruises","l.tours":"guided tours",
@@ -582,16 +625,19 @@
       "l.restaurants":"Restaurants","l.duck":"duck","hanoi.spa":"Clothing &amp; spa","l.map":"Map","hanoi.tailor":"Nhut Tailor booking",
       "sapa.tag":"Highlands · terraces","l.mustvisit":"must visit",
       "phuquoc.tag":"Island · together","l.breakfast":"breakfast",
-      "footer":"Onofrei &amp; Miron families · built from the shared planning doc — links reflect the source, not independently verified."
+      "footer":"Families O &amp; M · built from the shared planning doc — links reflect the source, not independently verified."
     }
   };
   var root = document.getElementById('page');
   var original = {};
   root.querySelectorAll('[data-i18n]').forEach(function(el){ original[el.getAttribute('data-i18n')] = original[el.getAttribute('data-i18n')] || el.innerHTML; });
 
+  var currentLang = 'ro';
   function apply(lang){
+    currentLang = lang;
     root.querySelectorAll('[data-i18n]').forEach(function(el){
       var key = el.getAttribute('data-i18n');
+      if (!(key in original)) original[key] = el.innerHTML; // elements injected after load (unlocked block) are still Romanian here
       if(lang === 'en' && dict.en[key]){ el.innerHTML = dict.en[key]; }
       else { el.innerHTML = original[key]; }
     });
@@ -622,6 +668,78 @@
   var appsSaved = '1';
   try { appsSaved = localStorage.getItem('vn-apps') || '1'; } catch(e){}
   setApps(appsSaved !== '0');
+
+  // Family filter — show both or one family's itinerary; choice remembered per viewer
+  var famBtns = document.querySelectorAll('[data-family-btn]');
+  function setFamily(f){
+    famBtns.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-family-btn') === f ? 'true' : 'false'); });
+    document.querySelectorAll('.family[data-family]').forEach(function(a){ a.hidden = (f !== 'all' && a.getAttribute('data-family') !== f); });
+    try { localStorage.setItem('vn-family', f); } catch(e){}
+  }
+  famBtns.forEach(function(b){ b.addEventListener('click', function(){ setFamily(b.getAttribute('data-family-btn')); }); });
+  var famSaved = 'all';
+  try { famSaved = localStorage.getItem('vn-family') || 'all'; } catch(e){}
+  setFamily(['all','o','m'].indexOf(famSaved) >= 0 ? famSaved : 'all');
+
+  // Copy-to-clipboard for addresses (paste into Grab)
+  function copyText(t){
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t);
+    return new Promise(function(res, rej){
+      var ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy') ? res() : rej(); } catch(e){ rej(e); } finally { document.body.removeChild(ta); }
+    });
+  }
+  // Delegated, so buttons inside the unlocked block work too
+  root.addEventListener('click', function(ev){
+    var btn = ev.target.closest('.copy-btn[data-copy]');
+    if (!btn) return;
+    var label = btn.innerHTML;
+    copyText(btn.getAttribute('data-copy')).then(function(){
+      btn.innerHTML = currentLang === 'en' ? 'Copied ✓' : 'Copiat ✓';
+      setTimeout(function(){ btn.innerHTML = label; }, 1500);
+    }, function(){ /* clipboard blocked — address text stays visible for manual copy */ });
+  });
+
+  // Private itinerary: AES-GCM payload written by tools/encrypt_private.py; key = PBKDF2(family code)
+  var PRIVATE_O = /*PRIVATE_O:BEGIN*/{"s": "GFof7C0s2l0LSmlDJz4jAQ==", "i": "pS32YnsyksaHX7YI", "c": "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"}/*PRIVATE_O:END*/;
+  var PRIVATE_ITER = 300000; // keep identical to ITERATIONS in tools/encrypt_private.py
+  var slot = document.getElementById('private-o');
+  var form = slot && slot.querySelector('.unlock');
+  function b64(s){ return Uint8Array.from(atob(s), function(c){ return c.charCodeAt(0); }); }
+  function norm(c){ return (c || '').replace(/[\s-]/g, '').toLowerCase(); }
+  function decrypt(code){
+    var enc = new TextEncoder();
+    return crypto.subtle.importKey('raw', enc.encode(norm(code)), 'PBKDF2', false, ['deriveKey'])
+      .then(function(base){ return crypto.subtle.deriveKey({name:'PBKDF2', salt:b64(PRIVATE_O.s), iterations:PRIVATE_ITER, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, false, ['decrypt']); })
+      .then(function(key){ return crypto.subtle.decrypt({name:'AES-GCM', iv:b64(PRIVATE_O.i)}, key, b64(PRIVATE_O.c)); })
+      .then(function(buf){ return new TextDecoder().decode(buf); });
+  }
+  function reveal(htmlText){
+    var tpl = document.createElement('template'); tpl.innerHTML = htmlText.trim();
+    slot.replaceWith(tpl.content);
+    apply(currentLang);
+  }
+  function msg(ro, en){ form.querySelector('.unlock-msg').textContent = currentLang === 'en' ? en : ro; }
+  if (form) {
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      if (!PRIVATE_O) { msg('Detaliile nu sunt încă publicate.', 'Details are not published yet.'); return; }
+      if (!window.crypto || !crypto.subtle) { msg('Browserul nu poate decripta aici (e nevoie de HTTPS).', 'This browser cannot decrypt here (HTTPS needed).'); return; }
+      var code = form.querySelector('input').value;
+      msg('Se verifică…', 'Checking…');
+      decrypt(code).then(function(t){
+        try { localStorage.setItem('vn-famcode', norm(code)); } catch(e){}
+        reveal(t);
+      }, function(){ msg('Cod greșit.', 'Wrong code.'); });
+    });
+    // Same device, already unlocked once: open silently
+    var savedCode = null;
+    try { savedCode = localStorage.getItem('vn-famcode'); } catch(e){}
+    if (savedCode && PRIVATE_O && window.crypto && crypto.subtle) {
+      decrypt(savedCode).then(reveal, function(){ try { localStorage.removeItem('vn-famcode'); } catch(e){} });
+    }
+  }
 })();
 </script>
 </body>
