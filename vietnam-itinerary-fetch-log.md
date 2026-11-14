@@ -8,6 +8,8 @@ tags: [log, fetch, vietnam-itinerary]
 
 ## 2026 Q4
 
+- [2026-11-15] Q4 | research subagent (WebSearch/WebFetch, manual) + nominatim.openstreetmap.org (~32 lookups) | Michelin Guide pages, Wanderlog Google-rating quotes | 28 places found, 27 added to the planner catalogue, 22 with pins → [[restaurant-picks-2026-11-15]]. CARTO map tiles now need an API key, so the map stays on OpenStreetMap tiles.
+
 - [2026-11-14] Q4 | urllib (manual, no tool) | eng.nhuttailor.vn store list | the guide's tailor map link opens their Ho Chi Minh City store. Their site lists a Hà Nội branch at 20 Tràng Tiền, Hoàn Kiếm, which the planner now uses.
 - [2026-11-14] Q4 | urllib (manual, no tool) | nominatim.openstreetmap.org search + reverse (generic User-Agent, ~10 requests, 1.2 s apart) | coordinates for the private map pins, street addresses for two cafés/bars, and a pin for the Hà Nội tailor branch. The Phú Quốc villa pin is approximate (resort entrance).
 - [2026-11-14] Q4 | urllib redirect lookup (manual, no tool) | maps.app.goo.gl guide links (31) | exact pin coordinates (!3d/!4d) for the activity map.
