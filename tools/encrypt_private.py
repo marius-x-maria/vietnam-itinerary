@@ -1,6 +1,6 @@
 """Encrypt the private family itinerary into itinerary.html.
 
-Reads the clear-text HTML fragment from private/family-o.local.html (git-ignored) and the
+Reads the clear-text HTML fragment (both family timelines, planner, map) from private/family-o.local.html (git-ignored) and the
 family code from .env (FAMILY_O_CODE). Writes an AES-256-GCM payload, with the key derived by
 PBKDF2-SHA256, into the PRIVATE_O block of itinerary.html. The page decrypts it in the browser
 with Web Crypto once the family types the code.
@@ -50,7 +50,9 @@ def plain_terms(fragment: str) -> list[str]:
     m = re.search(r'<script type="application/json" id="o-fixed">(.*?)</script>', fragment, re.S)
     if m:
         data = json.loads(m.group(1).replace("<\\/", "</"))
-        for events in list(data.get("fixed", {}).values()) + [data.get("pins", [])]:
+        # Per-family shape {"fam": {"o": {"fixed": ...}, "m": {...}}}; the older flat {"fixed": ...} is still read.
+        groups = [data.get("fixed", {})] + [f.get("fixed", {}) for f in data.get("fam", {}).values()]
+        for events in [e for g in groups for e in g.values()] + [data.get("pins", [])]:
             terms += [e[k] for e in events for k in ("n", "a") if e.get(k)]
     out = set()
     for t in terms:

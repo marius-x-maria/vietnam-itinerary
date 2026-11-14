@@ -8,6 +8,8 @@ tags: [log, fetch, vietnam-itinerary]
 
 ## 2026 Q4
 
+- [2026-11-15] Q4 | research subagents (WebSearch/WebFetch, manual) + nominatim.openstreetmap.org (2 lookups, no pins) | Wanderlog and Spinach Guide Google-rating quotes, Klook activity snippets | ratings for 41 original guide places (8 unverified, 1 skipped), Rico address confirmed as 7 Nguyen Gia Thieu, one Phu Quoc steakhouse qualifies -> [[catalogue-ratings-2026-11-15]]
+
 - [2026-11-15] Q4 | research subagent (WebSearch/WebFetch, manual) + nominatim.openstreetmap.org (~32 lookups) | Michelin Guide pages, Wanderlog Google-rating quotes | 28 places found, 27 added to the planner catalogue, 22 with pins → [[restaurant-picks-2026-11-15]]. CARTO map tiles now need an API key, so the map stays on OpenStreetMap tiles.
 
 - [2026-11-14] Q4 | urllib (manual, no tool) | eng.nhuttailor.vn store list | the guide's tailor map link opens their Ho Chi Minh City store. Their site lists a Hà Nội branch at 20 Tràng Tiền, Hoàn Kiếm, which the planner now uses.

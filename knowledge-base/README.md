@@ -6,6 +6,7 @@ tags: [index, moc, vietnam-itinerary]
 
 # Knowledge Base — Vietnam Itinerary
 
+- [[catalogue-ratings-2026-11-15]] — Google/Klook ratings for the original guide places, Rico address check, Phú Quốc steak picks
 - [[restaurant-picks-2026-11-15]] — researched restaurant/café/bar picks with Michelin status and Google ratings (sources, fetch date)
 - [[fx-eur-vnd-2026-11-14]] — EUR→VND rate shown on the site, with sources and fetch date
 

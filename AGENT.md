@@ -14,7 +14,7 @@ One page, no backend; one encryption step for private details (below).
 ## How to Operate
 
 - Two pages: `index.html` (guide) and `itinerary.html` (family itineraries, family switch,
-  encrypted Family O timeline). Edit directly; the only build step is `tools/encrypt_private.py`.
+  both family timelines encrypted behind one family code). Edit directly; the only build step is `tools/encrypt_private.py`.
 - `itinerary.html` uses `.ro`/`.en` spans (CSS hides the other language) instead of the
   `data-i18n` dictionary; both pages share the `vn-lang` localStorage key. Design tokens are
   duplicated in both `<style>` blocks — change both.
@@ -55,17 +55,18 @@ served via GitHub Pages from root.
 | Embedded maps | `included` | Only the private activity map on `itinerary.html`; the guide page still links out |
 | Build tooling | `removed` | Deliberately zero-build Tier 0 — matches `wedding`/`electronics-website` |
 | Encrypted private itinerary | `included` | `tools/encrypt_private.py` + unlock form in `itinerary.html` |
-| Family O day planner | `included` | Inside the encrypted block. The Family O timeline is rendered by JS from `o-fixed` JSON (bookings) merged with the saved plan. Planner = a date dropdown (◀ ▶, labels show city, planned count, unsaved) showing one free day at a time (Excursion / Lunch / Dinner / Bar-coffee, + Tailor on Hà Nội days), each with an editable time; "Save day" applies it to the timeline; plan in `localStorage` (`vn-plan-o`), shared via `#plan=` link (URL fragment, never sent to a server). Planner JS is generic in `itinerary.html`; all data lives in the fragment |
-| Family O activity map | `included` | Inside the encrypted block, below the planner. Leaflet 1.9.4 (cdnjs) + OpenStreetMap tiles (softened with a CSS filter; CARTO and other Google-like tile providers need an API key), loaded only after unlock. Uses Hà Nội / Phú Quốc tabs that follow the planner date, filters (food / bar & coffee / excursions / tailor / stays & bookings) and an "only planned" switch. Pin coordinates come from the guide's Google Maps links (COORDS in the private builder); hotel pins come from OpenStreetMap |
+| Per-family day planner | `included` | Inside the encrypted block. Switch "Pentru: Familia O · Familia M · Ambele": each family has its own free days (`days.o` / `days.m`, a day can set a per-slot city `sc` for travel days); "Ambele" shows only shared days/slots, saves only the slots changed there to both families and flags slots where O and M differ. Both timelines are rendered by JS from `o-fixed` JSON (`fam.o` / `fam.m`: bookings, nights, map days) merged with that family's saved plan. Calendar id `31` = 1 Dec (shown via `dn`). Planner = a date dropdown (◀ ▶, labels show city, planned count, unsaved) showing one free day at a time (Excursion / Lunch / Dinner / Bar-coffee, + Tailor on Hà Nội days), each with an editable time; "Save day" applies it to the timeline; plan in `localStorage` (`vn-plan` = `{o, m}`; the older `vn-plan-o` is still read once), shared via `#plan=` link (`{p: O, m: M, c}`; older bare-array and `{p, c}` links load into Family O) (URL fragment, never sent to a server). Planner JS is generic in `itinerary.html`; all data lives in the fragment |
+| Activity map | `included` | Inside the encrypted block. Family O / M switch (follows the planner family) picks whose day route, stays and planned pins are shown. Leaflet 1.9.4 (cdnjs) + OpenFreeMap "liberty" vector tiles via MapLibre GL 5.6.0 (cdnjs) and @maplibre/maplibre-gl-leaflet 0.1.3 (jsdelivr), all with SRI; free, no key, no sign-up. Falls back to softened OpenStreetMap raster tiles (`.is-raster`) if WebGL or MapLibre fails. Loaded only after unlock. Filter = one category chip (Toate / Mâncare / Mic dejun & cafea / Bar / Excursii / Croitor) then sub-chips with counts (food kind, café/bar style from `st` + `subTags` in the builder, excursion length); stays and bookings always show as reference points. "Only planned" switch. Pin coordinates come from the guide's Google Maps links (COORDS in the private builder); hotel pins come from OpenStreetMap |
 | Itinerary page layout | `included` | After unlock: sticky tabs Itinerariu / Planificator / Hartă (`vn-view`); planner and map panels are moved out of the decrypted fragment into `#view-plan` / `#view-map`; the map is built on first visit to its tab. Icon colours by type (flight sky, hotel plum, food gold, excursion jade, bar plum, tailor lacquer). Buttons are icon-only on phones. In "today" mode during 15–30 Nov, today is highlighted and earlier days fold (`?today=YYYY-MM-DD` to test) |
 | Map day route | `included` | "Traseul zilei" select: numbered stops (morning hotel → bookings + planned items → night hotel) with a dashed line, a stop list and a Google Maps directions link (`/maps/dir/?api=1`, coordinates only) |
 | Custom places ("Locurile mele") | `included` | "➕ Adaugă alt loc…" in every planner dropdown opens a form: name, Google Maps link (pin read from long links: `!3d/!4d`, `@lat,lng`, `?q=lat,lng`), Klook link, type, Grab address, or a tap-to-place mini map. Saved in `localStorage` (`vn-custom-o`), ids ≥ 1000. The share link (UTF-8 base64 `{p, c}`) carries them. Links are restricted to http(s) and coordinates to Vietnam's bounds; all text goes in via `textContent` |
+| Place ratings | `included` | Every place shows "4.6★ (2.700) · description" (Google figures via Wanderlog etc.; tours show "Klook 4.9★ (16)"). Researched picks: [[restaurant-picks-2026-11-15]]; the guide's own places: [[catalogue-ratings-2026-11-15]] (`RATINGS` in the builder). Unverified places and tours that could not be matched to the exact activity get no rating |
 | Automated tests | `absent` | No test need for a static content page |
 
 ## Private Data Decision (2026-11-14, Marius chose option A)
 
 - Surnames are replaced by "Familia O" / "Familia M" on the page. Older git history still holds
-  the full names; accepted, not rewritten.
+  the full names and the earlier public Family M timeline; accepted, not rewritten.
 - Hotel names, addresses, check-in times, domestic flight times and reservations are **sensitive**
   (they show where a family sleeps each night). They are never in clear text in a served file.
 - Clear-text source: `private/family-o.local.html` (git-ignored). `tools/encrypt_private.py`
@@ -77,6 +78,10 @@ served via GitHub Pages from root.
   private/family-o.local.html` → `python tools/encrypt_private.py`, which verifies the round
   trip and that no private term is left in clear text (exit 2 if it is).
 - Strength = code entropy only. Never replace it with a short or guessable code.
+
+## In Progress
+
+- None. Per-family planner and the locked Family M itinerary shipped 2026-11-15 (not yet pushed).
 
 ## Rules
 
