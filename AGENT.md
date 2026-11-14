@@ -55,7 +55,7 @@ served via GitHub Pages from root.
 | Embedded maps | `absent` | Links open externally (Google Maps / Klook / etc.) |
 | Build tooling | `removed` | Deliberately zero-build Tier 0 — matches `wedding`/`electronics-website` |
 | Encrypted private itinerary | `included` | `tools/encrypt_private.py` + unlock form in `itinerary.html` |
-| Family O day planner | `included` | Inside the encrypted block. The Family O timeline is rendered by JS from `o-fixed` JSON (bookings) merged with the saved plan. Planner = one collapsible panel per free day (Excursion / Lunch / Dinner / Bar-coffee, + Tailor on Hà Nội days), each with an editable time; "Save day" applies it to the timeline; plan in `localStorage` (`vn-plan-o`), shared via `#plan=` link (URL fragment, never sent to a server). Planner JS is generic in `itinerary.html`; all data lives in the fragment |
+| Family O day planner | `included` | Inside the encrypted block. The Family O timeline is rendered by JS from `o-fixed` JSON (bookings) merged with the saved plan. Planner = a date dropdown (◀ ▶, labels show city, planned count, unsaved) showing one free day at a time (Excursion / Lunch / Dinner / Bar-coffee, + Tailor on Hà Nội days), each with an editable time; "Save day" applies it to the timeline; plan in `localStorage` (`vn-plan-o`), shared via `#plan=` link (URL fragment, never sent to a server). Planner JS is generic in `itinerary.html`; all data lives in the fragment |
 | Automated tests | `absent` | No test need for a static content page |
 
 ## Private Data Decision (2026-11-14, Marius chose option A)
