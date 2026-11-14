@@ -52,10 +52,11 @@ served via GitHub Pages from root.
 | Destination hotel/place/restaurant links | `included` | Sourced from the shared Google Doc |
 | Family itineraries with open-day markers | `included` | Specific days intentionally left open — see the source Doc |
 | Live sync with the Google Doc | `absent` | Manual re-publish, not automated |
-| Embedded maps | `absent` | Links open externally (Google Maps / Klook / etc.) |
+| Embedded maps | `included` | Only the private activity map on `itinerary.html`; the guide page still links out |
 | Build tooling | `removed` | Deliberately zero-build Tier 0 — matches `wedding`/`electronics-website` |
 | Encrypted private itinerary | `included` | `tools/encrypt_private.py` + unlock form in `itinerary.html` |
 | Family O day planner | `included` | Inside the encrypted block. The Family O timeline is rendered by JS from `o-fixed` JSON (bookings) merged with the saved plan. Planner = a date dropdown (◀ ▶, labels show city, planned count, unsaved) showing one free day at a time (Excursion / Lunch / Dinner / Bar-coffee, + Tailor on Hà Nội days), each with an editable time; "Save day" applies it to the timeline; plan in `localStorage` (`vn-plan-o`), shared via `#plan=` link (URL fragment, never sent to a server). Planner JS is generic in `itinerary.html`; all data lives in the fragment |
+| Family O activity map | `included` | Inside the encrypted block, below the planner. Leaflet 1.9.4 (cdnjs) + OpenStreetMap tiles, loaded only after unlock. Uses Hà Nội / Phú Quốc tabs that follow the planner date, filters (food / bar & coffee / excursions / tailor / stays & bookings) and an "only planned" switch. Pin coordinates come from the guide's Google Maps links (COORDS in the private builder); hotel pins come from OpenStreetMap |
 | Automated tests | `absent` | No test need for a static content page |
 
 ## Private Data Decision (2026-11-14, Marius chose option A)

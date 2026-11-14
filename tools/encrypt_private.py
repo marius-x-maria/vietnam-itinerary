@@ -49,7 +49,8 @@ def plain_terms(fragment: str) -> list[str]:
     # Booked events live as JSON in <script id="o-fixed">: their venue names ("n") and addresses ("a") are private.
     m = re.search(r'<script type="application/json" id="o-fixed">(.*?)</script>', fragment, re.S)
     if m:
-        for events in json.loads(m.group(1).replace("<\\/", "</")).get("fixed", {}).values():
+        data = json.loads(m.group(1).replace("<\\/", "</"))
+        for events in list(data.get("fixed", {}).values()) + [data.get("pins", [])]:
             terms += [e[k] for e in events for k in ("n", "a") if e.get(k)]
     out = set()
     for t in terms:
