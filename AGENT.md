@@ -67,8 +67,10 @@ served via GitHub Pages from root.
   encrypts it (PBKDF2-SHA256 300k → AES-256-GCM) into the `PRIVATE_O` block of `itinerary.html`.
   The key is `FAMILY_O_CODE` in `.env`: 16 random chars (~79 bits). Shared with the family by
   private message only. The page decrypts it with Web Crypto and remembers the code per device.
-- To change the private itinerary: edit the private file → run the tool → it verifies the
-  round trip and that no private term is left in clear text (exit 2 if it is).
+- To change the private itinerary: edit `private/build_fragment.py` (also git-ignored; holds the
+  Family O timeline plus the "ideas for free days" plan) → `python private/build_fragment.py o
+  private/family-o.local.html` → `python tools/encrypt_private.py`, which verifies the round
+  trip and that no private term is left in clear text (exit 2 if it is).
 - Strength = code entropy only. Never replace it with a short or guessable code.
 
 ## Rules
