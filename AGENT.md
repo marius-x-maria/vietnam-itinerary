@@ -55,6 +55,7 @@ served via GitHub Pages from root.
 | Embedded maps | `absent` | Links open externally (Google Maps / Klook / etc.) |
 | Build tooling | `removed` | Deliberately zero-build Tier 0 — matches `wedding`/`electronics-website` |
 | Encrypted private itinerary | `included` | `tools/encrypt_private.py` + unlock form in `itinerary.html` |
+| Family O day planner | `included` | Inside the encrypted block: dropdowns per day (Excursion / Lunch / Dinner, Tailor on Hà Nội days) + drag from "All options" on desktop; plan in `localStorage` (`vn-plan-o`), shared via `#plan=` link (URL fragment, never sent to a server). Planner JS is generic in `itinerary.html`; all data lives in the fragment |
 | Automated tests | `absent` | No test need for a static content page |
 
 ## Private Data Decision (2026-11-14, Marius chose option A)
@@ -68,7 +69,7 @@ served via GitHub Pages from root.
   The key is `FAMILY_O_CODE` in `.env`: 16 random chars (~79 bits). Shared with the family by
   private message only. The page decrypts it with Web Crypto and remembers the code per device.
 - To change the private itinerary: edit `private/build_fragment.py` (also git-ignored; holds the
-  Family O timeline plus the "ideas for free days" plan) → `python private/build_fragment.py o
+  Family O timeline plus the planner data: catalogue of guide places, free days, slots, defaults) → `python private/build_fragment.py o
   private/family-o.local.html` → `python tools/encrypt_private.py`, which verifies the round
   trip and that no private term is left in clear text (exit 2 if it is).
 - Strength = code entropy only. Never replace it with a short or guessable code.
