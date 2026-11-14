@@ -46,6 +46,11 @@ def read_code() -> str:
 def plain_terms(fragment: str) -> list[str]:
     # Every visible name/address in the fragment; none may appear in the built page.
     terms = re.findall(r'data-copy="([^"]+)"', fragment) + re.findall(r"<strong>([^<]+)</strong>", fragment)
+    # Booked events live as JSON in <script id="o-fixed">: their venue names ("n") and addresses ("a") are private.
+    m = re.search(r'<script type="application/json" id="o-fixed">(.*?)</script>', fragment, re.S)
+    if m:
+        for events in json.loads(m.group(1).replace("<\\/", "</")).get("fixed", {}).values():
+            terms += [e[k] for e in events for k in ("n", "a") if e.get(k)]
     out = set()
     for t in terms:
         t = html.unescape(t).strip()
