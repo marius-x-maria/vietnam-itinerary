@@ -64,6 +64,8 @@ served via GitHub Pages from root.
 | Traditional Vietnamese picks category | `included` | 🇻🇳 "Traditional Vietnamese · Claude's pick", 5 Hà Nội Michelin places (food ids 128-132); Phở Hà Đông id 127 removed. Phú Quốc rows 133-136 researched, not shown: [[traditional-vietnamese-picks-2026-11-15]] |
 | Phú Quốc coastal palette + lotus mark | `included` | Sand / sea-teal `--brand` / coral (lacquer token) / palm (jade token). `--brand` is a semantic token; jade keeps its meaning for Hà Nội and excursions. Lotus mark kept |
 | Planner breakfast/brunch slot | `included` | Slot shows only `st=brunch` items plus items with `br=1` (ids 111/112) and custom cafés |
+| First-visit guide card | `included` | `<dialog id="guide">` in `itinerary.html` (public, generic text): 4 points (Itinerariu / Planificator / Hartă / Trimite planul, ⭐ = Marius's own places, 🇻🇳 = Claude's picks). Opens once per device after unlock (`vn-guide-seen`), "?" button in the view tabs reopens it |
+| Marius's own places starred | `included` | Builder prefixes "⭐ " to catalogue names with id < 100; Michelin labels on Claude's picks read "Michelin …" (no ⭐) |
 | Automated tests | `absent` | No test need for a static content page |
 
 ## Private Data Decision (2026-11-14, Marius chose option A)

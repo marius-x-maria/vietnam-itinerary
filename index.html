@@ -44,6 +44,13 @@
   .route .city{font-size:12.5px;font-weight:600;fill:var(--ink);}
   .route .origin{font-size:11.5px;font-weight:500;}
   .route .sub{font-size:10.5px;fill:var(--ink-soft);}
+  @media (max-width:560px){
+    .route .city{font-size:21px;}
+    .route .origin{font-size:19px;}
+    .route .sub{font-size:16.5px;}
+    .route .sub-end{text-anchor:end;}
+    .route .low{transform:translateY(9px);}
+  }
 
   nav.jump{position:sticky;top:0;z-index:5;background:color-mix(in srgb, var(--surface) 92%, transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
   nav.jump .wrap{display:flex;align-items:center;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none;}
@@ -117,7 +124,7 @@
   .places-list, .restaurant-list{display:flex;flex-direction:column;gap:8px;}
 
   footer{padding-block:32px;text-align:center;font-size:13px;color:var(--ink-soft);}
-  footer .flag{font-size:18px;}
+  footer .flag{width:27px;height:18px;vertical-align:middle;}
 
   @media (max-width:480px){
     .hero{padding-block:36px 20px;}
@@ -153,8 +160,8 @@
       <text x="14" y="30" class="origin" fill="var(--lacquer)">Zürich</text>
       <path d="M20 40 C 70 40, 90 78, 140 82" stroke="var(--lacquer)" stroke-width="2" fill="none" stroke-dasharray="2 5" stroke-linecap="round"/>
 
-      <text x="14" y="128" class="origin" fill="var(--gold)">București</text>
-      <text x="14" y="142" class="sub" data-i18n="route.beijing">→ escală Beijing</text>
+      <text x="14" y="128" class="origin low" fill="var(--gold)">București</text>
+      <text x="14" y="142" class="sub low" data-i18n="route.beijing">→ escală Beijing</text>
       <path d="M20 118 C 70 118, 90 86, 140 84" stroke="var(--gold)" stroke-width="2" fill="none" stroke-dasharray="2 5" stroke-linecap="round"/>
 
       <circle cx="150" cy="83" r="7" fill="var(--jade)"/>
@@ -168,7 +175,7 @@
       <circle cx="515" cy="83" r="13" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
       <circle cx="515" cy="83" r="6" fill="var(--lacquer)"/>
       <text x="515" y="60" class="city" text-anchor="middle">Phú Quốc</text>
-      <text x="515" y="108" class="sub" text-anchor="middle" data-i18n="route.together">împreună · zile libere</text>
+      <text x="515" y="112" class="sub sub-end" text-anchor="middle" data-i18n="route.together">împreună · zile libere</text>
     </svg>
   </div>
 </header>
@@ -487,7 +494,7 @@
 </section>
 
 <footer>
-  <span class="flag">🇻🇳</span><br>
+  <svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Vietnam"><rect width="30" height="20" rx="2" fill="#DA251D"/><path fill="#FF0" d="M15 4.2l1.35 4.15h4.36l-3.53 2.56 1.35 4.15L15 12.5l-3.53 2.56 1.35-4.15-3.53-2.56h4.36z"/></svg><br>
   <span data-i18n="footer">Familiile O &amp; M · construit din documentul comun de planificare — linkurile reflectă sursa, neverificate independent.</span>
 </footer>
 
