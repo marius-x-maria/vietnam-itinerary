@@ -47,6 +47,7 @@ status: FETCHED
 
 - **Selection rule:** Michelin-listed places first. Otherwise a place needs a Google rating of 4.3 or more with at least 800 reviews.
 - **Michelin exceptions:** Phở Bò Lâm and Hemispheres have fewer than 800 reviews, and Phở Khôi Hói and Habakuk have no verifiable rating. They are kept because they are Michelin-listed.
+- **Re-check 2026-11-15 (Michelin 2026 list):** every pick still passes. El Gaucho was dropped from Michelin Selected in 2026 ([VnExpress](https://e.vnexpress.net/news/travel/food-recipes/10-vietnamese-restaurants-removed-from-michelin-lists-5083185.html)), so its Michelin label is removed; it stays on 4.5★ (1,294). Hemispheres is Michelin Selected 2026 ([Viet Nam News](https://vietnamnews.vn/life-style/1785652/michelin-selected-for-four-years-hemisphere-steak-and-seafood-grill-at-sheraton-hanoi-hotel-continues-its-excellence.html)). Phở Gia Truyền, Phở Gà Nguyệt, Phở Bò Lâm, Phở Khôi Hói, Habakuk, and the 🇻🇳 picks Chả Cá Thăng Long, Thanh Vân, Miến Lươn Chân Cầm, Chào Bạn are on the 2026 Hà Nội Bib list ([flavorsofhanoi](https://flavorsofhanoi.com/?p=9041)). On the site, Michelin labels now read "Michelin …" and ⭐ marks Marius's own places (ids < 100).
 - **Hà Nội steak:** only 3 places qualify. Steakout, Moo Beef and Grill 63 miss the review threshold.
 - **Phú Quốc steak:** no place qualifies, and Phú Quốc has no Michelin listings yet.
 - **Ratings were not read directly from Google Maps.** They are Google figures quoted by third-party pages. Where two sources disagreed, the lower figure is used.
