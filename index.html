@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vietnam, Together</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,18..144,400..700;1,18..144,400..600&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..600&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
 
   /* Tokens (Phú Quốc coastal: sand, sea teal, coral, palm; lacquer = coral, jade = palm) - keep in sync between index.html and itinerary.html */
   :root{
@@ -29,7 +29,7 @@
   body{margin:0;background:var(--paper);color:var(--ink);font-family:'Be Vietnam Pro', system-ui, sans-serif;-webkit-font-smoothing:antialiased;}
   a{color:inherit;}
   .wrap{max-width:900px;margin-inline:auto;padding-inline:20px;}
-  h1,h2,h3{font-family:'Literata', Georgia, serif; text-wrap:balance; margin:0;}
+  h1,h2,h3{font-family:'Literata', Georgia, serif; line-height:1.15; text-wrap:balance; margin:0;}
   :focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
 
   .ic{width:16px;height:16px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px;}
@@ -44,6 +44,7 @@
   .route .city{font-size:12.5px;font-weight:600;fill:var(--ink);}
   .route .origin{font-size:12px;font-weight:500;}
   .route .sub{font-size:10.5px;fill:var(--ink-soft);}
+  .route .low{transform:translateY(7px);}
   @media (max-width:560px){
     .route .city{font-size:23px;}
     .route .origin{font-size:21px;}
