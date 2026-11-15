@@ -61,6 +61,9 @@ served via GitHub Pages from root.
 | Map day route | `included` | "Traseul zilei" select: numbered stops (morning hotel → bookings + planned items → night hotel) with a dashed line, a stop list and a Google Maps directions link (`/maps/dir/?api=1`, coordinates only) |
 | Custom places ("Locurile mele") | `included` | "➕ Adaugă alt loc…" in every planner dropdown opens a form: name, Google Maps link (pin read from long links: `!3d/!4d`, `@lat,lng`, `?q=lat,lng`), Klook link, type, Grab address, or a tap-to-place mini map. Saved in `localStorage` (`vn-custom-o`), ids ≥ 1000. The share link (UTF-8 base64 `{p, c}`) carries them. Links are restricted to http(s) and coordinates to Vietnam's bounds; all text goes in via `textContent` |
 | Place ratings | `included` | Every place shows "4.6★ (2.700) · description" (Google figures via Wanderlog etc.; tours show "Klook 4.9★ (16)"). Researched picks: [[restaurant-picks-2026-11-15]]; the guide's own places: [[catalogue-ratings-2026-11-15]] (`RATINGS` in the builder). Unverified places and tours that could not be matched to the exact activity get no rating |
+| Traditional Vietnamese picks category | `included` | 🇻🇳 "Traditional Vietnamese · Claude's pick", 5 Hà Nội Michelin places (food ids 128-132); Phở Hà Đông id 127 removed. Phú Quốc rows 133-136 researched, not shown: [[traditional-vietnamese-picks-2026-11-15]] |
+| Phú Quốc coastal palette + lotus mark | `included` | Sand / sea-teal `--brand` / coral (lacquer token) / palm (jade token). `--brand` is a semantic token; jade keeps its meaning for Hà Nội and excursions. Lotus mark kept |
+| Planner breakfast/brunch slot | `included` | Slot shows only `st=brunch` items plus items with `br=1` (ids 111/112) and custom cafés |
 | Automated tests | `absent` | No test need for a static content page |
 
 ## Private Data Decision (2026-11-14, Marius chose option A)
@@ -81,7 +84,7 @@ served via GitHub Pages from root.
 
 ## In Progress
 
-- None. Per-family planner and the locked Family M itinerary shipped 2026-11-15 (not yet pushed).
+- None. All shipped and pushed 2026-11-15 (HEAD `4eb417b`). Trip runs 15-30 Nov: fixes only, each with a security scan. Open cosmetic items: 🇻🇳 renders as "VN" on Windows; Hartă icon glyph; hero route labels ~8px on mobile. Details in `private/NEXT.md`.
 
 ## Rules
 
