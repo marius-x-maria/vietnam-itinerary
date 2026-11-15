@@ -86,7 +86,8 @@ served via GitHub Pages from root.
 
 ## In Progress
 
-- None. All shipped and pushed 2026-11-15 (HEAD `4eb417b`). Trip runs 15-30 Nov: fixes only, each with a security scan. Open cosmetic items: 🇻🇳 renders as "VN" on Windows; Hartă icon glyph; hero route labels ~8px on mobile. Details in `private/NEXT.md`.
+- None. All shipped and pushed 2026-11-15 (HEAD `4eb417b`). Trip runs 15-30 Nov: fixes only, each with a security scan. Open cosmetic items: 🇻🇳 renders as "VN" on Windows; Hartă icon glyph. Details in `private/NEXT.md`.
+- **Uncommitted, not pushed (2026-11-15):** accessibility fix found by `tools/layout_probe.py`. Light-theme `--lacquer`, `--jade`, `--gold` darkened to reach WCAG AA on their soft backgrounds (both pages); hero route labels 12 px on phones; `.subhead` and apps toggle 12 px; app-card links 24 px tall. Probe: 0 errors, 0 warnings at 375 and 1280, light and dark, on the public view of both pages. The unlocked (encrypted) view of `itinerary.html` was not probed: it still has 11.5 px labels and raw-hex map pins using the old colours. Needs commit, [[security-checker]], push.
 
 ## Rules
 
