@@ -200,6 +200,18 @@
   .view-tabs[hidden]{display:none;}
   .view-tabs button{flex:1;border:1px solid var(--line);background:var(--surface);font:inherit;font-size:14px;font-weight:700;padding:10px 8px;border-radius:12px;color:var(--ink-soft);cursor:pointer;}
   .view-tabs button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--surface);}
+  .view-tabs .tab-help{flex:0 0 44px;padding:10px 0;font-size:16px;color:var(--brand);}
+  /* First-visit guide card */
+  .guide{border:none;border-radius:18px;padding:0;max-width:440px;width:calc(100% - 32px);background:var(--surface);color:var(--ink);box-shadow:0 12px 40px rgb(0 0 0 / .25);}
+  .guide::backdrop{background:rgb(20 38 42 / .45);}
+  .guide-in{padding:20px 20px 16px;display:flex;flex-direction:column;gap:12px;max-height:85vh;overflow-y:auto;}
+  .guide h2{margin:0;font-size:19px;}
+  .guide ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+  .guide li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.45;}
+  .guide li .gi{flex:0 0 34px;height:34px;display:grid;place-items:center;border-radius:10px;background:var(--brand-soft);font-size:17px;}
+  .guide li strong{display:block;}
+  .guide-foot{font-size:12.5px;color:var(--ink-soft);margin:0;}
+  .guide-ok{font:inherit;font-size:15px;font-weight:700;border:none;border-radius:12px;padding:12px;background:var(--brand);color:var(--surface);cursor:pointer;}
   .view-panel{margin-top:12px;}
   .view-panel .ideas, .view-panel .map-wrap{margin-top:0;padding-top:0;border-top:none;}
   /* Today mode */
@@ -302,7 +314,22 @@
     <button type="button" data-view="itin" aria-pressed="true">🗓 <span class="ro">Itinerariu</span><span class="en">Itinerary</span></button>
     <button type="button" data-view="plan" aria-pressed="false">✏️ <span class="ro">Planificator</span><span class="en">Planner</span></button>
     <button type="button" data-view="map" aria-pressed="false">🗺 <span class="ro">Hartă</span><span class="en">Map</span></button>
+    <button type="button" class="tab-help" data-testid="guide-open" aria-label="Ghid / Guide" title="Ghid / Guide">?</button>
   </nav>
+
+  <dialog class="guide" id="guide" data-testid="guide" aria-labelledby="guide-t">
+    <div class="guide-in">
+      <h2 id="guide-t"><span class="ro">Cum folosești pagina</span><span class="en">How to use this page</span></h2>
+      <ol>
+        <li><span class="gi">🗓</span><span><strong><span class="ro">Itinerariu</span><span class="en">Itinerary</span></strong><span class="ro">Zilele fiecărei familii: zboruri, cazări, rezervări. În timpul călătoriei, ziua de azi e evidențiată. Atinge „Hartă” pentru Google Maps sau copiază adresa pentru Grab.</span><span class="en">Each family's days: flights, stays, bookings. During the trip, today is highlighted. Tap “Map” for Google Maps or copy the address for Grab.</span></span></li>
+        <li><span class="gi">✏️</span><span><strong><span class="ro">Planificator</span><span class="en">Planner</span></strong><span class="ro">Alege „Pentru: Familia O / M / Ambele”, apoi ziua și câte un loc pe fiecare moment (excursie, mic dejun, cină, bar). Apasă „Salvează ziua”. ⭐ = recomandările voastre, 🇻🇳 = alegerile lui Claude.</span><span class="en">Pick “For: Family O / M / Both”, then the day and one place per slot (excursion, breakfast, dinner, bar). Press “Save day”. ⭐ = your own recommendations, 🇻🇳 = Claude's picks.</span></span></li>
+        <li><span class="gi">🗺</span><span><strong><span class="ro">Hartă</span><span class="en">Map</span></strong><span class="ro">Toate locurile pe hartă, cu filtre. „Traseul zilei” arată opririle zilei în ordine, cu link de direcții în Google Maps.</span><span class="en">Every place on the map, with filters. “Day route” shows the day's stops in order, with a Google Maps directions link.</span></span></li>
+        <li><span class="gi">↗</span><span><strong><span class="ro">Trimite planul</span><span class="en">Share plan</span></strong><span class="ro">Planul se salvează doar pe telefonul tău. Ca să-l vadă și ceilalți, apasă „↗ Trimite planul” în Planificator și trimite linkul.</span><span class="en">Your plan is saved only on your phone. To show it to the others, press “↗ Share plan” in the Planner and send the link.</span></span></li>
+      </ol>
+      <p class="guide-foot"><span class="ro">Poți redeschide ghidul oricând cu butonul „?” de lângă file.</span><span class="en">Reopen this guide any time with the “?” button next to the tabs.</span></p>
+      <button type="button" class="guide-ok" data-testid="guide-ok"><span class="ro">Am înțeles</span><span class="en">Got it</span></button>
+    </div>
+  </dialog>
 
   <div id="view-itin">
   <div id="private-o" class="unlock-card">
@@ -1219,6 +1246,14 @@
     if (v === 'map' && onMapShow) onMapShow();
     if (v === 'itin' && onItinShow) onItinShow();
   }
+  // First-visit guide: shown once per device after unlock, reopened with the "?" tab button
+  var guide = document.getElementById('guide');
+  function openGuide(){ if (guide.showModal) { if (!guide.open) guide.showModal(); } else guide.setAttribute('open', ''); }
+  function closeGuide(){ try { localStorage.setItem('vn-guide-seen', '1'); } catch(e){} if (guide.close) guide.close(); else guide.removeAttribute('open'); }
+  guide.querySelector('.guide-ok').addEventListener('click', closeGuide);
+  guide.addEventListener('cancel', function(){ try { localStorage.setItem('vn-guide-seen', '1'); } catch(e){} });
+  guide.addEventListener('click', function(ev){ if (ev.target === guide) closeGuide(); });
+  tabs.querySelector('.tab-help').addEventListener('click', openGuide);
   tabs.addEventListener('click', function(ev){
     var b = ev.target.closest('[data-view]'); if (!b) return;
     setView(b.getAttribute('data-view'));
@@ -1238,6 +1273,8 @@
     tabs.hidden = false;
     var v = 'itin'; try { v = localStorage.getItem('vn-view') || 'itin'; } catch(e){}
     setView(v);
+    var seen = null; try { seen = localStorage.getItem('vn-guide-seen'); } catch(e){}
+    if (!seen) openGuide();
   }
   function msg(ro, en){ form.querySelector('.unlock-msg').textContent = isEn() ? en : ro; }
   form.addEventListener('submit', function(ev){
