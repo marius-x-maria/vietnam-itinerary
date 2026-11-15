@@ -20,3 +20,4 @@ tags: [log, fetch, vietnam-itinerary]
 
 - [2026-11-14] Q4 | WebSearch (manual research, no tool) | hotel booking sites and restaurant guides | addresses for the private (encrypted) itinerary. One hotel's house number varies across listings, so check it on the booking confirmation. Venue names stay out of this public log.
 - [2026-11-14] Q4 | curl (manual, no tool) | open.er-api.com /v6/latest/EUR + jsdelivr fawazahmed0 currency-api eur.json | EUR→VND changed from 28,985 to 28,400 (rounded; sources 28,411.71 / 28,302.55) → [[fx-eur-vnd-2026-11-14]]
+- [2026-11-15] Q4 | WebSearch + WebFetch (subagent, no tool) | guide.michelin.com, wanderlog.com, joinpearl.co | 9 traditional Vietnamese picks (5 HN Michelin, 4 PQ Google 4.3+/800+), pins from Google Maps links → [[traditional-vietnamese-picks-2026-11-15]]

@@ -61,7 +61,7 @@ The Wanderlog page ([source](https://wanderlog.com/place/details/3543100/rico-so
 
 | Place | Google ★ | Reviews | Address | Source | Meets rule |
 |---|---|---|---|---|---|
-| Phở Hà Đông Steak House | 4.6 | 308 | Đá Ông Địa, Khu phố Suối Lớn, Phú Quốc, An Giang (no street number) | [Wanderlog](https://wanderlog.com/place/details/8014523) | yes, by 8 reviews |
+| Phở Hà Đông Steak House | 4.6 | 308 | Đá Ông Địa, Khu phố Suối Lớn, Phú Quốc, An Giang (no street number) | [Wanderlog](https://wanderlog.com/place/details/8014523) | yes, by 8 reviews · dismissed by Marius 2026-11-15, not on the site |
 | Mad Cow Wine & Grill | 4.5 | 274 | Ban Quy Hamlet, Dương Tơ, Phú Quốc (rooftop of a beach resort) | [Wanderlog](https://wanderlog.com/place/details/3578382) | no, 26 reviews short |
 
 Nominatim found no pin for either place.
