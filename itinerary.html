@@ -171,12 +171,13 @@
   .map-chips::-webkit-scrollbar{display:none;}
   .map-chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);font:inherit;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;}
   .map-chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--surface);}
-  .map-chip .cnt{font-weight:500;opacity:.7;margin-left:5px;font-variant-numeric:tabular-nums;}
+  .map-chip .cnt{font-weight:500;margin-left:5px;font-variant-numeric:tabular-nums;}
   .map-sub{padding-left:10px;border-left:2px solid var(--brand-soft);}
   .map-sub .map-chip{font-size:12.5px;padding:5px 10px;background:var(--paper);}
   .map-sub .map-chip[aria-pressed="true"]{background:var(--brand-soft);color:var(--brand);border-color:var(--brand);}
   .map-only[hidden]{display:none;}
-  .map-only{font-size:13px;color:var(--ink-soft);display:flex;align-items:center;gap:6px;}
+  .map-only{font-size:13px;color:var(--ink-soft);display:flex;align-items:center;gap:6px;min-height:32px;cursor:pointer;}
+  .map-only input{width:18px;height:18px;margin:0;accent-color:var(--brand);}
   /* Softer, Google-like look on the free OpenStreetMap tiles */
   .is-raster .leaflet-tile-pane{filter:saturate(.62) brightness(1.06) contrast(.92);}
   .leaflet-bar{border:none !important;box-shadow:0 1px 4px rgb(0 0 0 / .3) !important;border-radius:8px !important;overflow:hidden;}
@@ -186,7 +187,7 @@
   .map-count{font-size:12px;color:var(--ink-soft);margin-top:6px;}
   .map-msg{font-size:13px;color:var(--ink-soft);}
   .map-pin-wrap{background:none;border:none;}
-  .map-pin{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--map-surface);border:2px solid var(--map-neutral);box-shadow:0 1px 4px rgb(0 0 0 / .3);font-size:13px;line-height:1;}
+  .map-pin{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--map-surface);border:2px solid var(--map-neutral);box-shadow:0 1px 4px rgb(0 0 0 / .3);color:var(--map-ink);font-size:13px;line-height:1;}
   .map-pin.pin-food{border-color:var(--map-gold);} .map-pin.pin-bar{border-color:var(--map-wood);} .map-pin.pin-exc{border-color:var(--map-palm);} .map-pin.pin-tailor{border-color:var(--map-lacquer);}
   .map-pin.pin-hotel{border-color:var(--map-lacquer);background:var(--map-lacquer-soft);}
   .map-pin.is-planned{transform:scale(1.18);box-shadow:0 0 0 3px var(--map-brand), 0 2px 6px rgb(0 0 0 / .35);}
